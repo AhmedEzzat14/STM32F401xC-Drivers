@@ -1,0 +1,2 @@
+../stm32f401xc_drivers/ECU/SevenSegment_driver.c:40:6:HAL_SEVEN_SEG_WriteNumber_CommCathode	6
+../stm32f401xc_drivers/ECU/SevenSegment_driver.c:64:6:HAL_SEVEN_SEG_WriteNumber_CommAnode	7

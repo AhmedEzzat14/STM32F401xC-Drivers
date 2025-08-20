@@ -1,0 +1,8 @@
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:29:6:MCAL_GPIO_Init	6
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:87:6:MCAL_GPIO_Denit	6
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:112:9:MCAL_GPIO_ReadPin	1
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:123:10:MCAL_GPIO_ReadPort	1
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:138:6:MCAL_GPIO_WritePin	2
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:163:6:MCAL_GPIO_WritePort	1
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:175:6:MCAL_GPIO_TogglePin	1
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:187:9:MCAL_GPIO_LockPin	2

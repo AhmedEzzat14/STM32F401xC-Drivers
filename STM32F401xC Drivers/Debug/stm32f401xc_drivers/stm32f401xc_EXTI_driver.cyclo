@@ -1,0 +1,13 @@
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:43:6:Enable_NVIC	8
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:64:6:Disable_NVIC	8
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:85:6:Set_EXTI	9
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:148:6:MCAL_EXTI_GPIO_Init	1
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:158:6:MCAL_EXTI_GPIO_DeInit	1
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:196:6:MCAL_EXTI_GPIO_Update	1
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:207:6:EXTI0_IRQHandler	1
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:213:6:EXTI1_IRQHandler	1
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:219:6:EXTI2_IRQHandler	1
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:225:6:EXTI3_IRQHandler	1
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:231:6:EXTI4_IRQHandler	1
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:237:6:EXTI9_5_IRQHandler	6
+../stm32f401xc_drivers/stm32f401xc_EXTI_driver.c:245:6:EXTI15_10_IRQHandler	7
