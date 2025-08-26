@@ -24,6 +24,8 @@
 
 #define Cortex_M4_Internal_Peripherals_BASE					0xE0000000UL
 
+#define SysTicK_BASE										0xE000E010UL
+
 //-----------------------------
 //Base addresses for NVIC
 //-----------------------------
@@ -94,6 +96,17 @@
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 // Peripheral Register
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+// Peripheral Register: SysTick
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+typedef struct{
+	 volatile uint32_t CTRL	 ;
+	 volatile uint32_t LOAD	 ;
+	 volatile uint32_t VAL	 ;
+	 volatile uint32_t CALIB ;
+
+}SysTick_Typedef;
 
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 // Peripheral Register: SYSCFG
@@ -193,6 +206,8 @@ typedef struct{
 //-*-*-*-*-*-*-*-*-*-*-*-
 // Peripheral Instants:
 //-*-*-*-*-*-*-*-*-*-*-*-
+#define SysTick								((SysTick_Typedef *)SysTicK_BASE)
+
 #define SYSCFG								((SYSCFG_Typedef *)SYSCFG_BASE)
 
 #define RCC									((RCC_TypeDef *)RCC_BASE)
@@ -301,10 +316,12 @@ typedef struct{
 //-*-*-*-*-*-*-*-*-*-*-*-
 // Generic Macros:
 //-*-*-*-*-*-*-*-*-*-*-*-
-#define ENABLE			1
-#define DISABLE			0
+#define ENABLE						1
+#define DISABLE						0
 
-#define HIGH			1
-#define LOW				0
+#define HIGH						1
+#define LOW							0
+
+#define GET_BIT(VAL, BIT) 			((VAL >> BIT) & 1)
 
 #endif

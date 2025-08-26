@@ -134,6 +134,4 @@ void MCAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t PinNumber);
 
 uint8_t MCAL_GPIO_LockPin(GPIO_TypeDef *GPIOx, uint16_t PinNumber);
 
-#define GET_BIT(VAL, BIT) (VAL>>BIT & 1)
-
 #endif /* STM32F401XC_GPIO_DRIVER_H_ */

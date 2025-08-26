@@ -1,0 +1,5 @@
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:19:6:HAL_LedMatrix_Init	3
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:46:6:HAL_LedMatrix_DisplayFrame	3
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:65:13:HAL_LedMatrix_EnableCurrentCol	1
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:69:13:HAL_LedMatrix_SetRowValue	2
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:75:13:HAL_LedMatrix_DisableAllCol	2
