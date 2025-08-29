@@ -5,14 +5,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../stm32f401xc_drivers/ECU/DAC_driver.c \
 ../stm32f401xc_drivers/ECU/Led_Matrix_driver.c \
 ../stm32f401xc_drivers/ECU/SevenSegment_driver.c 
 
 OBJS += \
+./stm32f401xc_drivers/ECU/DAC_driver.o \
 ./stm32f401xc_drivers/ECU/Led_Matrix_driver.o \
 ./stm32f401xc_drivers/ECU/SevenSegment_driver.o 
 
 C_DEPS += \
+./stm32f401xc_drivers/ECU/DAC_driver.d \
 ./stm32f401xc_drivers/ECU/Led_Matrix_driver.d \
 ./stm32f401xc_drivers/ECU/SevenSegment_driver.d 
 
@@ -24,7 +27,7 @@ stm32f401xc_drivers/ECU/%.o stm32f401xc_drivers/ECU/%.su stm32f401xc_drivers/ECU
 clean: clean-stm32f401xc_drivers-2f-ECU
 
 clean-stm32f401xc_drivers-2f-ECU:
-	-$(RM) ./stm32f401xc_drivers/ECU/Led_Matrix_driver.cyclo ./stm32f401xc_drivers/ECU/Led_Matrix_driver.d ./stm32f401xc_drivers/ECU/Led_Matrix_driver.o ./stm32f401xc_drivers/ECU/Led_Matrix_driver.su ./stm32f401xc_drivers/ECU/SevenSegment_driver.cyclo ./stm32f401xc_drivers/ECU/SevenSegment_driver.d ./stm32f401xc_drivers/ECU/SevenSegment_driver.o ./stm32f401xc_drivers/ECU/SevenSegment_driver.su
+	-$(RM) ./stm32f401xc_drivers/ECU/DAC_driver.cyclo ./stm32f401xc_drivers/ECU/DAC_driver.d ./stm32f401xc_drivers/ECU/DAC_driver.o ./stm32f401xc_drivers/ECU/DAC_driver.su ./stm32f401xc_drivers/ECU/Led_Matrix_driver.cyclo ./stm32f401xc_drivers/ECU/Led_Matrix_driver.d ./stm32f401xc_drivers/ECU/Led_Matrix_driver.o ./stm32f401xc_drivers/ECU/Led_Matrix_driver.su ./stm32f401xc_drivers/ECU/SevenSegment_driver.cyclo ./stm32f401xc_drivers/ECU/SevenSegment_driver.d ./stm32f401xc_drivers/ECU/SevenSegment_driver.o ./stm32f401xc_drivers/ECU/SevenSegment_driver.su
 
 .PHONY: clean-stm32f401xc_drivers-2f-ECU
 
