@@ -1,0 +1,4 @@
+../stm32f401xc_drivers/ECU/Serial2Parallel_drivers.c:39:6:HAL_Serial2Parallel_Init	72	static
+../stm32f401xc_drivers/ECU/Serial2Parallel_drivers.c:70:6:HAL_Serial2Parallel_SendData	24	static
+../stm32f401xc_drivers/ECU/Serial2Parallel_drivers.c:78:13:Serial2Parallel_ShiftData	16	static
+../stm32f401xc_drivers/ECU/Serial2Parallel_drivers.c:84:13:Serial2Parallel_LatchData	16	static

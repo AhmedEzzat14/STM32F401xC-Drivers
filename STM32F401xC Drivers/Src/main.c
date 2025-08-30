@@ -22,7 +22,7 @@
 #include "Led_Matrix_driver.h"
 #include "SevenSegment_driver.h"
 #include "DAC_driver.h"
-#include "sound.h"
+#include "Serial2Parallel_drivers.h"
 
 void Clock_Init(void) {
 	RCC_GPIOA_CLK_EN();
@@ -30,57 +30,22 @@ void Clock_Init(void) {
 	RCC_SYSCFG_CLK_EN();
 }
 
-void GPIO_Init(void){
-	GPIO_PinConfig_t sound_pins[8] = {
-			{.GPIO_PinNumber = GPIO_PIN_0, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
-			{.GPIO_PinNumber = GPIO_PIN_1, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
-			{.GPIO_PinNumber = GPIO_PIN_2, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
-			{.GPIO_PinNumber = GPIO_PIN_3, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
-			{.GPIO_PinNumber = GPIO_PIN_4, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
-			{.GPIO_PinNumber = GPIO_PIN_5, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
-			{.GPIO_PinNumber = GPIO_PIN_6, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
-			{.GPIO_PinNumber = GPIO_PIN_7, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
-	};
+//void GPIO_Init(void){
+//	GPIO_PinConfig_t sound_pins[8] = {
+//			{.GPIO_PinNumber = GPIO_PIN_0, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
+//			{.GPIO_PinNumber = GPIO_PIN_1, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
+//			{.GPIO_PinNumber = GPIO_PIN_2, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
+//			{.GPIO_PinNumber = GPIO_PIN_3, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
+//			{.GPIO_PinNumber = GPIO_PIN_4, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
+//			{.GPIO_PinNumber = GPIO_PIN_5, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
+//			{.GPIO_PinNumber = GPIO_PIN_6, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
+//			{.GPIO_PinNumber = GPIO_PIN_7, .GPIO_MODE = GPIO_MODE_OP, .GPIO_TYPE = GPIO_TYPE_PP, .GPIO_Output_Speed = GPIO_SPEED_LOW, .GPIO_PU_PD = GPIO__PU_PD_NONE},
+//	};
+//
+//	HAL_DAC_Init(GPIOA, sound_pins, 8);
+//}
 
-	HAL_DAC_Init(GPIOA, sound_pins, 8);
-}
-
-void EXTI_DAC_Handler(void){
-	MCAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
-
-	static uint32_t iterator = 0;
-
-	HAL_DAC_SendAudioSample(test_raw, iterator);
-
-	if (iterator < test_raw_len){
-		iterator++;
-	}
-	else{
-		iterator = 0;
-	}
-}
-
-void EXTI_GPIOInit(void){
-	EXTI_PinConfig_t EXTI_PinConf;
-
-	EXTI_PinConf.EXTI_PIN = EXTI6_PB6;
-	EXTI_PinConf.EXTI_Enable = EXTI_IRQ_EN;
-	EXTI_PinConf.EXTI_EdgeSelect = EXTI_TRIGGER_RISING;
-	EXTI_PinConf.P_IRQ_CallBack = EXTI_DAC_Handler;
-	MCAL_EXTI_GPIO_Init(&EXTI_PinConf);
-}
-
-void TestLed_Init(void){
-	GPIO_PinConfig_t test_led;
-
-	test_led.GPIO_PinNumber = GPIO_PIN_7;
-	test_led.GPIO_MODE = GPIO_MODE_OP;
-	test_led.GPIO_TYPE = GPIO_TYPE_PP;
-	test_led.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	test_led.GPIO_PU_PD = GPIO__PU_PD_NONE;
-
-	MCAL_GPIO_Init(GPIOB, &test_led);
-}
+uint8_t arr[8] = {0x00, 0x02, 0x03, 0xB1, 0xB9, 0x0F, 0x06, 0x00};
 
 int main(void){
 	// Select AHB / 8 temporary until i make driver or it
@@ -91,12 +56,19 @@ int main(void){
 	while (((RCC->CFGR >> 2) & 0x3) != 0x1);
 
 	Clock_Init();
-	GPIO_Init();
-	EXTI_GPIOInit();
-	TestLed_Init();
+
+	S2P_PinConfig_t S2P_pin;
+	S2P_pin.S2P_Data_Pin = GPIO_PIN_0;
+	S2P_pin.S2P_LatchCLK_Pin = GPIO_PIN_1;
+	S2P_pin.S2P_ShiftCLK_Pin = GPIO_PIN_2;
+
+	HAL_Serial2Parallel_Init(GPIOA, GPIOA, GPIOA, &S2P_pin);
+
+	HAL_LedMatrix_S2P_Init(GPIOA, GPIOA, GPIOA, &S2P_pin);
+
+	HAL_LedMatrix_S2P_DisplayFrame(&S2P_pin, arr, 500);
 
 	while(1);
 
 	return 0 ;
 }
-

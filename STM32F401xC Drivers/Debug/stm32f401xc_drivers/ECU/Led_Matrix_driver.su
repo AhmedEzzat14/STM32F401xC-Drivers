@@ -1,5 +1,7 @@
 ../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:19:6:HAL_LedMatrix_Init	32	static
-../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:46:6:HAL_LedMatrix_DisplayFrame	24	static
-../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:65:13:HAL_LedMatrix_EnableCurrentCol	16	static
-../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:69:13:HAL_LedMatrix_SetRowValue	24	static
-../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:75:13:HAL_LedMatrix_DisableAllCol	16	static
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:46:6:HAL_LedMatrix_S2P_Init	32	static
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:57:6:HAL_LedMatrix_DirectDisplayFrame	24	static
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:75:6:HAL_LedMatrix_S2P_DisplayFrame	32	static
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:90:13:HAL_LedMatrix_EnableCurrentCol	16	static
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:94:13:HAL_LedMatrix_SetRowValue	24	static
+../stm32f401xc_drivers/ECU/Led_Matrix_driver.c:100:13:HAL_LedMatrix_DisableAllCol	16	static

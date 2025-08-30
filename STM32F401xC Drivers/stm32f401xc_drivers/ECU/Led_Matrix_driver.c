@@ -43,11 +43,21 @@ void HAL_LedMatrix_Init(GPIO_TypeDef *GPIOx_rows, GPIO_TypeDef *GPIOx_cols,
 	MCAL_SysTicK_Init(&SysTick_CFG);
 }
 
-void HAL_LedMatrix_DisplayFrame(uint8_t frame[], uint32_t FrameDelay){
+void HAL_LedMatrix_S2P_Init(GPIO_TypeDef *GPIOx_data, GPIO_TypeDef *GPIOx_shift, GPIO_TypeDef *GPIOx_latch, S2P_PinConfig_t *S2P_pin){
+	HAL_Serial2Parallel_Init(GPIOx_data, GPIOx_shift, GPIOx_latch, S2P_pin);
+
+	SysTick_Config_t SysTIck_cfg;
+	SysTIck_cfg.SysTick_InterruptEnable= SysTick_Interrupt_DIS;
+	SysTIck_cfg.SysTick_CLKSource = SysTick_CLK_AHB_8;
+
+	MCAL_SysTicK_Init(&SysTIck_cfg);
+
+}
+
+void HAL_LedMatrix_DirectDisplayFrame(uint8_t frame[], uint32_t FrameDelay){
 	for(uint32_t j = 0; j < FrameDelay; j++){
 
 		for(uint8_t i = 0; i < G_cols_number; i++){
-
 			// Set Row Value
 			HAL_LedMatrix_SetRowValue(frame[i]);
 
@@ -58,6 +68,21 @@ void HAL_LedMatrix_DisplayFrame(uint8_t frame[], uint32_t FrameDelay){
 
 			// Disable All Cols
 			HAL_LedMatrix_DisableAllCol();
+		}
+	}
+}
+
+void HAL_LedMatrix_S2P_DisplayFrame(S2P_PinConfig_t *S2P_pin, uint8_t frame[], uint32_t FrameDelay){
+	for(uint32_t j = 0; j < FrameDelay; j++){
+
+		for(uint8_t i = 0; i < G_cols_number; i++){
+            // Disable all columns
+			HAL_Serial2Parallel_SendData(S2P_pin, (((frame[i]) << 8) | 0x00));
+
+            // Send row & enable current column
+			HAL_Serial2Parallel_SendData(S2P_pin, (((frame[i]) << 8) | (1 << i)));
+
+			MCAL_SysTicK_SetDelay_ms(ScanTime);
 		}
 	}
 }

@@ -25,7 +25,8 @@ typedef struct{
 	uint16_t GPIO_MODE;	        	// Specifies the Mode of GPIO
 							   	    // This Parameter can be value at @ref GPIO_MODE_define
 
-	uint32_t GPIO_AF;
+	uint32_t GPIO_AFx;				// Specifies the Alternate Function Number
+									// This Parameter can be value at @ref GPIO_AFx_define
 
 	uint16_t GPIO_TYPE;	        	// Specifies the Type of GPIO
 							   	    // This Parameter can be value at @ref GPIO_TYPE_define
@@ -102,6 +103,24 @@ typedef struct{
 #define GPIO__PU_PD_PU								0x00000001u      // Pull-up
 #define GPIO__PU_PD_PD								0x00000002u      // Pull-down
 
+// @ref GPIO_AFx_define
+#define GPIO_AFL_0									0
+#define GPIO_AFL_1									1
+#define GPIO_AFL_2									2
+#define GPIO_AFL_3									3
+#define GPIO_AFL_4									4
+#define GPIO_AFL_5									5
+#define GPIO_AFL_6									6
+#define GPIO_AFL_7									7
+#define GPIO_AFH_8									8
+#define GPIO_AFH_9									9
+#define GPIO_AFH_10									10
+#define GPIO_AFH_11									11
+#define GPIO_AFH_12									12
+#define GPIO_AFH_13									13
+#define GPIO_AFH_14									14
+#define GPIO_AFH_15									15
+
 // @ref GPIO_SPEED_define
 // 0: Low speed
 // 1: Medium speed
@@ -128,6 +147,7 @@ uint8_t MCAL_GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t PinNumber);
 uint16_t MCAL_GPIO_ReadPort(GPIO_TypeDef *GPIOx);
 
 void MCAL_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t PinNumber, uint16_t value);
+void MCAL_GPIO_WritePinAtomic(GPIO_TypeDef *GPIOx, uint16_t PinNumber, uint16_t value);
 void MCAL_GPIO_WritePort(GPIO_TypeDef *GPIOx, uint16_t value);
 
 void MCAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t PinNumber);

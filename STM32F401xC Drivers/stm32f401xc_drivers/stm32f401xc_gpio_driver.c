@@ -26,8 +26,7 @@
   * @retval 		- none
   * Note 			- stm32f103xx have GPIO A,B,C,D,E but this package has only A and B fully and some of C and D
   */
-void MCAL_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_PinConfig_t *PinConfig)
-{
+void MCAL_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_PinConfig_t *PinConfig){
     uint32_t pin = PinConfig->GPIO_PinNumber;
 
     // Clear old data from registers
@@ -46,7 +45,6 @@ void MCAL_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_PinConfig_t *PinConfig)
         GPIOx->PUPDR   |= (PinConfig->GPIO_PU_PD << (2 * pin));
         break;
 
-        /* Still Need to be tested */
     case GPIO_MODE_AF:   // Alternate function
         GPIOx->MODER   |= (0x2 << (2 * pin));   // 10
         GPIOx->OTYPER  |= (PinConfig->GPIO_TYPE << pin);
@@ -55,11 +53,12 @@ void MCAL_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_PinConfig_t *PinConfig)
 
         // Configure AF (AFRL [0..7], AFRH [8..15])
         if (pin < 8) {
-            GPIOx->AFRL[0] &= ~(0xF << (4 * pin));
-            GPIOx->AFRL[0] |= (PinConfig->GPIO_AF << (4 * pin));
-        } else {
-            GPIOx->AFRH[1] &= ~(0xF << (4 * (pin - 8)));
-            GPIOx->AFRH[1] |= (PinConfig->GPIO_AF << (4 * (pin - 8)));
+            GPIOx->AFR[0] &= ~(0xF << (4 * pin));
+            GPIOx->AFR[0] |= (PinConfig->GPIO_AFx << (4 * pin));
+        }
+        else if((pin >= 8) && (pin < 16)){
+            GPIOx->AFR[1] &= ~(0xF << (4 * (pin - 8)));
+            GPIOx->AFR[1] |= (PinConfig->GPIO_AFx << (4 * (pin - 8)));
         }
         break;
 
@@ -75,7 +74,6 @@ void MCAL_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_PinConfig_t *PinConfig)
         break;
     }
 }
-
 
 /**================================================================
   * @Fn				- MCAL_GPIO_Reset
@@ -149,6 +147,41 @@ void MCAL_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t PinNumber, uint16_t value)
 		// 0: No action on the corresponding ODRx bit
 		// 1: Reset the corresponding ODRx bit
         GPIOx->ODR &= ~(1 << PinNumber);
+	}
+}
+
+/**================================================================
+  * @Fn				- MCAL_GPIO_WritePinAtomic
+  * @brief 			- Write on specific pin without reading or change whole port
+  * @param [in]  	- GPIOx: x can be (A....E depends on device) to select GPIO Peripherals
+  * @param [in]  	- pinNo: can be (0...15 depends on GPIOx) to select pin number
+  * @param [in]  	- Value: the sate of the pin (can be two values based on @ref GPIO_PIN_state)
+  * @retval 		- None
+  * Note 			- None
+  */
+void MCAL_GPIO_WritePinAtomic(GPIO_TypeDef *GPIOx, uint16_t PinNumber, uint16_t value){
+	if(HIGH == value){
+		if(GPIOx == GPIOA){
+			GPIOA->BSRR = 1 << PinNumber;
+		}
+		else if(GPIOx == GPIOB){
+			GPIOB->BSRR = 1 << PinNumber;
+		}
+		else if(GPIOx == GPIOC){
+			GPIOC->BSRR = 1 << PinNumber;
+		}
+
+	}
+	else if(LOW == value){
+		if(GPIOx == GPIOA){
+			GPIOA->BSRR = 1 << (PinNumber + 16);
+		}
+		else if(GPIOx == GPIOB){
+			GPIOB->BSRR = 1 << (PinNumber + 16);
+		}
+		else if(GPIOx == GPIOC){
+			GPIOC->BSRR = 1 << (PinNumber + 16);
+		}
 	}
 }
 

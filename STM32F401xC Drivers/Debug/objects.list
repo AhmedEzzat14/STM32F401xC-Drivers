@@ -4,6 +4,7 @@
 "./Startup/startup_stm32f401ccux.o"
 "./stm32f401xc_drivers/ECU/DAC_driver.o"
 "./stm32f401xc_drivers/ECU/Led_Matrix_driver.o"
+"./stm32f401xc_drivers/ECU/Serial2Parallel_drivers.o"
 "./stm32f401xc_drivers/ECU/SevenSegment_driver.o"
 "./stm32f401xc_drivers/stm32f401xc_EXTI_driver.o"
 "./stm32f401xc_drivers/stm32f401xc_RCC_driver.o"

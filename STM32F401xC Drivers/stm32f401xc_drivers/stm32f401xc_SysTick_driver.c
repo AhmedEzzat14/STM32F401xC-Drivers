@@ -90,7 +90,8 @@ void MCAL_SysTicK_SetInterval_Single(uint32_t Delay_Time_ms, void(* P_Function_C
 void MCAL_SysTicK_SetInterval_Multi(uint32_t Delay_Time_ms, void(* P_Function_CallBack)(void)){
 	G_SingleFlag = 0;
 
-	uint32_t ticks = Delay_Time_ms * 3125;
+//	uint32_t ticks = Delay_Time_ms * 3125;
+	uint32_t ticks = Delay_Time_ms;
 
 	GP_Function_CallBack = P_Function_CallBack;
 

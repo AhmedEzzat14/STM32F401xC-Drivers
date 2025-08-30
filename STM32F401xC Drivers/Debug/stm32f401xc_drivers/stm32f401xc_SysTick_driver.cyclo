@@ -6,4 +6,4 @@
 ../stm32f401xc_drivers/stm32f401xc_SysTick_driver.c:71:10:MCAL_SysTicK_GetRemainingTime_SingleShot	1
 ../stm32f401xc_drivers/stm32f401xc_SysTick_driver.c:75:6:MCAL_SysTicK_SetInterval_Single	3
 ../stm32f401xc_drivers/stm32f401xc_SysTick_driver.c:90:6:MCAL_SysTicK_SetInterval_Multi	3
-../stm32f401xc_drivers/stm32f401xc_SysTick_driver.c:105:6:SysTick_Handler	3
+../stm32f401xc_drivers/stm32f401xc_SysTick_driver.c:106:6:SysTick_Handler	3

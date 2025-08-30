@@ -1,8 +1,9 @@
 ../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:29:6:MCAL_GPIO_Init	24	static
-../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:87:6:MCAL_GPIO_Denit	16	static
-../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:112:9:MCAL_GPIO_ReadPin	16	static
-../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:123:10:MCAL_GPIO_ReadPort	24	static
-../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:138:6:MCAL_GPIO_WritePin	16	static
-../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:163:6:MCAL_GPIO_WritePort	16	static
-../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:175:6:MCAL_GPIO_TogglePin	16	static
-../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:187:9:MCAL_GPIO_LockPin	24	static
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:85:6:MCAL_GPIO_Denit	16	static
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:110:9:MCAL_GPIO_ReadPin	16	static
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:121:10:MCAL_GPIO_ReadPort	24	static
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:136:6:MCAL_GPIO_WritePin	16	static
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:162:6:MCAL_GPIO_WritePinAtomic	16	static
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:196:6:MCAL_GPIO_WritePort	16	static
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:208:6:MCAL_GPIO_TogglePin	16	static
+../stm32f401xc_drivers/stm32f401xc_gpio_driver.c:220:9:MCAL_GPIO_LockPin	24	static
