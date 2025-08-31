@@ -38,27 +38,30 @@ static const uint8_t SevenSeg_LUT[10] = {
  */
 
 void HAL_SEVEN_SEG_WriteNumber_CommCathode(uint16_t Number, BCD_Status_t bcd_status){
-	if(enable == bcd_status){
+    // Check if the number is higher than 9
+    if(Number > 9){
+        for(uint8_t i = 0; i < 7; i++){
+            MCAL_GPIO_WritePin(GPIOA, (1<<i), GPIO_PIN_RST);
+        }
+        return;
+    }
+
+    if(enable == bcd_status){
         for(uint8_t i=0; i<4; i++){
-             if(Number & (1<<i)){
-                 MCAL_GPIO_WritePin(GPIOA, (1<<i), GPIO_PIN_SET);
-             }
-             else{
-                 MCAL_GPIO_WritePin(GPIOA, (1<<i), GPIO_PIN_RST);
-             }
-         }
-	}
-	else{
+            if(Number & (1<<i)){
+                MCAL_GPIO_WritePin(GPIOA, (1<<i), GPIO_PIN_SET);
+            }
+            else{
+                MCAL_GPIO_WritePin(GPIOA, (1<<i), GPIO_PIN_RST);
+            }
+        }
+    }
+    else{
 		uint8_t pattern = SevenSeg_LUT[Number];
 		for(uint8_t i = 0; i < 7; i++){
-			if((pattern>>i) & 1){
-				MCAL_GPIO_WritePin(GPIOA, (1<<i), GPIO_PIN_SET);
-			}
-			else{
-				MCAL_GPIO_WritePin(GPIOA, (1<<i), GPIO_PIN_RST);
-			}
+				MCAL_GPIO_WritePin(GPIOA, i, GET_BIT(pattern, i));
 		}
-	}
+    }
 }
 
 void HAL_SEVEN_SEG_WriteNumber_CommAnode(uint16_t Number, BCD_Status_t bcd_status){
