@@ -104,22 +104,22 @@ typedef struct{
 #define GPIO__PU_PD_PD								0x00000002u      // Pull-down
 
 // @ref GPIO_AFx_define
-#define GPIO_AFL_0									0
-#define GPIO_AFL_1									1
-#define GPIO_AFL_2									2
-#define GPIO_AFL_3									3
-#define GPIO_AFL_4									4
-#define GPIO_AFL_5									5
-#define GPIO_AFL_6									6
-#define GPIO_AFL_7									7
-#define GPIO_AFH_8									8
-#define GPIO_AFH_9									9
-#define GPIO_AFH_10									10
-#define GPIO_AFH_11									11
-#define GPIO_AFH_12									12
-#define GPIO_AFH_13									13
-#define GPIO_AFH_14									14
-#define GPIO_AFH_15									15
+#define GPIO_AF0									0
+#define GPIO_AF1									1
+#define GPIO_AF2									2
+#define GPIO_AF3									3
+#define GPIO_AF4									4
+#define GPIO_AF5									5
+#define GPIO_AF6									6
+#define GPIO_AF7									7
+#define GPIO_AF8									8
+#define GPIO_AF9									9
+#define GPIO_AF10									10
+#define GPIO_AF11									11
+#define GPIO_AF12									12
+#define GPIO_AF13									13
+#define GPIO_AF14									14
+#define GPIO_AF15									15
 
 // @ref GPIO_SPEED_define
 // 0: Low speed

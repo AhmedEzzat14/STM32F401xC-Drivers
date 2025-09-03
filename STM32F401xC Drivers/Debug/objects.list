@@ -9,6 +9,8 @@
 "./stm32f401xc_drivers/ECU/SevenSegment_driver.o"
 "./stm32f401xc_drivers/stm32f401xc_EXTI_driver.o"
 "./stm32f401xc_drivers/stm32f401xc_RCC_driver.o"
+"./stm32f401xc_drivers/stm32f401xc_SPI_driver.o"
 "./stm32f401xc_drivers/stm32f401xc_SysTick_driver.o"
+"./stm32f401xc_drivers/stm32f401xc_Timer_driver.o"
 "./stm32f401xc_drivers/stm32f401xc_USART_driver.o"
 "./stm32f401xc_drivers/stm32f401xc_gpio_driver.o"

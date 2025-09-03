@@ -1,0 +1,9 @@
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:49:6:SPI1_IRQHandler	16	static
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:59:6:SPI2_IRQHandler	16	static
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:69:6:SPI3_IRQHandler	16	static
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:86:6:MCAL_SPI_Init	24	static
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:164:6:MCAL_SPI_DeInit	16	static
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:180:13:MCAL_SPI_SetPins	32	static
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:277:6:MCAL_SPI_SendData	32	static
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:304:6:MCAL_SPI_ReceiveData	32	static
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:331:6:MCAL_SPI_Transceive	24	static

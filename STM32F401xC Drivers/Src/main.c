@@ -24,133 +24,67 @@
 #include "DAC_driver.h"
 #include "Serial2Parallel_drivers.h"
 #include "IR_driver.h"
+#include "stm32f401xc_USART_driver.h"
+#include "stm32f401xc_SPI_driver.h"
 
-void Clock_Init(void) {
+
+void Clock_Init(void){
 	RCC_GPIOA_CLK_EN();
 	RCC_GPIOB_CLK_EN();
 	RCC_SYSCFG_CLK_EN();
 }
 
-void SevSeg_Ini(void){
-	GPIO_PinConfig_t PinConfig;
-	PinConfig.GPIO_PinNumber = GPIO_PIN_0;
-	PinConfig.GPIO_MODE = GPIO_MODE_OP;
-	PinConfig.GPIO_TYPE = GPIO_TYPE_PP;
-	PinConfig.GPIO_PU_PD = GPIO__PU_PD_NONE;
-	PinConfig.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	MCAL_GPIO_Init(GPIOA, &PinConfig);
+uint8_t buffer;
 
-	PinConfig.GPIO_PinNumber = GPIO_PIN_1;
-	PinConfig.GPIO_MODE = GPIO_MODE_OP;
-	PinConfig.GPIO_TYPE = GPIO_TYPE_PP;
-	PinConfig.GPIO_PU_PD = GPIO__PU_PD_NONE;
-	PinConfig.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	MCAL_GPIO_Init(GPIOA, &PinConfig);
+USART_PinConfig_t uart_cfg;
 
-	PinConfig.GPIO_PinNumber = GPIO_PIN_2;
-	PinConfig.GPIO_MODE = GPIO_MODE_OP;
-	PinConfig.GPIO_TYPE = GPIO_TYPE_PP;
-	PinConfig.GPIO_PU_PD = GPIO__PU_PD_NONE;
-	PinConfig.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	MCAL_GPIO_Init(GPIOA, &PinConfig);
-
-	PinConfig.GPIO_PinNumber = GPIO_PIN_3;
-	PinConfig.GPIO_MODE = GPIO_MODE_OP;
-	PinConfig.GPIO_TYPE = GPIO_TYPE_PP;
-	PinConfig.GPIO_PU_PD = GPIO__PU_PD_NONE;
-	PinConfig.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	MCAL_GPIO_Init(GPIOA, &PinConfig);
-
-	PinConfig.GPIO_PinNumber = GPIO_PIN_4;
-	PinConfig.GPIO_MODE = GPIO_MODE_OP;
-	PinConfig.GPIO_TYPE = GPIO_TYPE_PP;
-	PinConfig.GPIO_PU_PD = GPIO__PU_PD_NONE;
-	PinConfig.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	MCAL_GPIO_Init(GPIOA, &PinConfig);
-
-	PinConfig.GPIO_PinNumber = GPIO_PIN_5;
-	PinConfig.GPIO_MODE = GPIO_MODE_OP;
-	PinConfig.GPIO_TYPE = GPIO_TYPE_PP;
-	PinConfig.GPIO_PU_PD = GPIO__PU_PD_NONE;
-	PinConfig.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	MCAL_GPIO_Init(GPIOA, &PinConfig);
-
-	PinConfig.GPIO_PinNumber = GPIO_PIN_6;
-	PinConfig.GPIO_MODE = GPIO_MODE_OP;
-	PinConfig.GPIO_TYPE = GPIO_TYPE_PP;
-	PinConfig.GPIO_PU_PD = GPIO__PU_PD_NONE;
-	PinConfig.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	MCAL_GPIO_Init(GPIOA, &PinConfig);
-
-	PinConfig.GPIO_PinNumber = GPIO_PIN_6;
-	PinConfig.GPIO_MODE = GPIO_MODE_OP;
-	PinConfig.GPIO_TYPE = GPIO_TYPE_PP;
-	PinConfig.GPIO_PU_PD = GPIO__PU_PD_NONE;
-	PinConfig.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	MCAL_GPIO_Init(GPIOA, &PinConfig);
+void UART_CallBack(S_USART_IRQ_SRC irq_src){
+	if(irq_src.RXNE){
+		MCAL_UART_ReceiveData(USART1, &buffer, Disable);
+//		if (buffer == 'A'){
+//		        MCAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+		        MCAL_UART_SendData(USART1, &buffer, Disable);
+//		}
+	}
 }
 
 int main(void){
-	RCC->CR |= (1 << 16);
-	while (!(RCC->CR & (1 << 17)));
-	RCC->CFGR &= ~(0x3 << 0);
-	RCC->CFGR |= (0x1 << 0);
-	while (((RCC->CFGR >> 2) & 0x3) != 0x1);
+    // Enable HSI clock
+    RCC->CR |= (1 << 16);
+    while (!(RCC->CR & (1 << 17)));
+    RCC->CFGR &= ~(0x3 << 0);
+    RCC->CFGR |= (0x1 << 0);
+    while (((RCC->CFGR >> 2) & 0x3) != 0x1);
 
-	Clock_Init();
-	SevSeg_Ini();
+    Clock_Init();
 
-	EXTI_PinConfig_t A_xCfg;
-	A_xCfg.EXTI_PIN= EXTI0_PB0;
-	A_xCfg.EXTI_Enable = EXTI_IRQ_EN;
-	A_xCfg.EXTI_EdgeSelect = EXTI_TRIGGER_FALLING;
-	A_xCfg.P_IRQ_CallBack = HAL_IR_GetTime;
+    // Configure LED pin once
+    GPIO_PinConfig_t PinConfig;
+    PinConfig.GPIO_PinNumber = GPIO_PIN_0;
+    PinConfig.GPIO_MODE = GPIO_MODE_OP;
+    PinConfig.GPIO_TYPE = GPIO_TYPE_PP;
+    PinConfig.GPIO_PU_PD = GPIO__PU_PD_NONE;
+    PinConfig.GPIO_Output_Speed = GPIO_SPEED_LOW;
+    MCAL_GPIO_Init(GPIOA, &PinConfig);
+    MCAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 1); // Start with LED OFF
 
-	MCAL_EXTI_GPIO_Init(&A_xCfg);
+    USART_PinConfig_t uart_cfg;
 
-	SysTick_Config_t STK_cfg;
-	STK_cfg.SysTick_InterruptEnable = SysTick_Interrupt_EN;
-	STK_cfg.SysTick_CLKSource = SysTick_CLK_AHB_8;
-	MCAL_SysTicK_Init(&STK_cfg);
+    uart_cfg.USART_Mode = UART_MODE_TX_RX;
+    uart_cfg.USART_PayLoad_Lenght = UART_PayLoad_Length_8Bits;
+    uart_cfg.USART_ParityMode = UART_Parity_DIS;
+    uart_cfg.USART_StopBits = UART_StopBits_1Bit;
+    uart_cfg.USART_BaudRate = 9600;
+    uart_cfg.USART_Sampling = UART_Sampling_16;
+    uart_cfg.USART_HW_FlowCTRL = UART_HW_FLW_CTRL_RTS_DIS;
+    uart_cfg.USART_IRQ_Enable = UART_IRQ_ENABLE_TXEIE_RXNEIE;
+    uart_cfg.P_IRQ_CallBack = UART_CallBack;
 
-	uint8_t G_value = 0;
-	uint8_t Number = 0;
+    MCAL_UART_Init(USART1, &uart_cfg);
 
+    while (1) {
+    }
 
-	HAL_SEVEN_SEG_WriteNumber_CommCathode(0, disable);
-
-	while (1){
-		G_value = get_value();
-
-		switch (G_value) {
-			case 22: Number = 0; break;
-			case 12: Number = 1; break;
-			case 24: Number = 2; break;
-			case 94: Number = 3; break;
-			case 8:  Number = 4; break;
-			case 28: Number = 5; break;
-			case 90: Number = 6; break;
-			case 66: Number = 7; break;
-			case 82: Number = 8; break;
-			case 74: Number = 9; break;
-			case 9:
-				MCAL_SysTicK_SetDelay_ms(45);
-				if(G_value == 9){
-					if (Number < 9) Number++;
-					else Number = 0;
-				}
-				break;
-			case 21:
-				MCAL_SysTicK_SetDelay_ms(45);
-				if(G_value == 21){
-					if (Number > 0) Number--;
-					else Number = 9;
-				}
-			default:			 break;
-		}
-
-		HAL_SEVEN_SEG_WriteNumber_CommCathode(Number, disable);
-	}
-
-	return 0 ;
+    return 0;
 }
+
