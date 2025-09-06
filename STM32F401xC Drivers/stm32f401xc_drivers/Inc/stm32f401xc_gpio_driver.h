@@ -99,9 +99,9 @@ typedef struct{
 // 1: Pull-up
 // 2: Pull-down
 // 3: Reserved
-#define GPIO__PU_PD_NONE							0x00000000u		 // No pull-up, pull-down (Floating)
-#define GPIO__PU_PD_PU								0x00000001u      // Pull-up
-#define GPIO__PU_PD_PD								0x00000002u      // Pull-down
+#define GPIO_PU_PD_NONE							0x00000000u		 // No pull-up, pull-down (Floating)
+#define GPIO_PU_PD_PU								0x00000001u      // Pull-up
+#define GPIO_PU_PD_PD								0x00000002u      // Pull-down
 
 // @ref GPIO_AFx_define
 #define GPIO_AF0									0

@@ -87,7 +87,7 @@ void Set_EXTI(EXTI_PinConfig_t *EXTI_PinConfig){
 	GPIO_PinConfig_t EXTI_Pin;
 	EXTI_Pin.GPIO_PinNumber = EXTI_PinConfig->EXTI_PIN.GPIO_PinNumber;
 	EXTI_Pin.GPIO_MODE = GPIO_MODE_IP;
-	EXTI_Pin.GPIO_PU_PD = GPIO__PU_PD_NONE;
+	EXTI_Pin.GPIO_PU_PD = GPIO_PU_PD_NONE;
 	MCAL_GPIO_Init((EXTI_PinConfig->EXTI_PIN.GPIOx), &EXTI_Pin);
 
 	// Update SYSCFG to route EXTI between port A B C

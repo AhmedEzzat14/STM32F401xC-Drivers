@@ -15,9 +15,6 @@
  *
  ******************************************************************************
  */
-
-#include "stm32f401xc_SysTick_driver.h"
-#include "stm32f401xc_gpio_driver.h"
 #include "stm32f401xc_EXTI_driver.h"
 #include "Led_Matrix_driver.h"
 #include "SevenSegment_driver.h"
@@ -26,6 +23,7 @@
 #include "IR_driver.h"
 #include "stm32f401xc_USART_driver.h"
 #include "stm32f401xc_SPI_driver.h"
+#include "stm32f401xc_Timer_driver.h"
 
 
 void Clock_Init(void){
@@ -34,57 +32,36 @@ void Clock_Init(void){
 	RCC_SYSCFG_CLK_EN();
 }
 
-uint8_t buffer;
-
-USART_PinConfig_t uart_cfg;
-
-void UART_CallBack(S_USART_IRQ_SRC irq_src){
-	if(irq_src.RXNE){
-		MCAL_UART_ReceiveData(USART1, &buffer, Disable);
-//		if (buffer == 'A'){
-//		        MCAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
-		        MCAL_UART_SendData(USART1, &buffer, Disable);
-//		}
-	}
-}
-
 int main(void){
-    // Enable HSI clock
-    RCC->CR |= (1 << 16);
-    while (!(RCC->CR & (1 << 17)));
-    RCC->CFGR &= ~(0x3 << 0);
-    RCC->CFGR |= (0x1 << 0);
-    while (((RCC->CFGR >> 2) & 0x3) != 0x1);
-
     Clock_Init();
 
-    // Configure LED pin once
-    GPIO_PinConfig_t PinConfig;
-    PinConfig.GPIO_PinNumber = GPIO_PIN_0;
-    PinConfig.GPIO_MODE = GPIO_MODE_OP;
-    PinConfig.GPIO_TYPE = GPIO_TYPE_PP;
-    PinConfig.GPIO_PU_PD = GPIO__PU_PD_NONE;
-    PinConfig.GPIO_Output_Speed = GPIO_SPEED_LOW;
-    MCAL_GPIO_Init(GPIOA, &PinConfig);
-    MCAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 1); // Start with LED OFF
+    GPIO_PinConfig_t pinCfg;
+    pinCfg.GPIO_PinNumber = GPIO_PIN_6;
+    pinCfg.GPIO_MODE = GPIO_MODE_AF;
+    pinCfg.GPIO_Output_Speed = GPIO_SPEED_HIGH;
+    pinCfg.GPIO_TYPE = GPIO_TYPE_PP;
+    pinCfg.GPIO_PU_PD = GPIO_PU_PD_NONE;
+    pinCfg.GPIO_AFx = GPIO_AF2;
+    MCAL_GPIO_Init(GPIOA, &pinCfg);
 
-    USART_PinConfig_t uart_cfg;
+    Timer_Config_t cfg;
+    Timer_OutputCompare_Config_t ocCfg;
 
-    uart_cfg.USART_Mode = UART_MODE_TX_RX;
-    uart_cfg.USART_PayLoad_Lenght = UART_PayLoad_Length_8Bits;
-    uart_cfg.USART_ParityMode = UART_Parity_DIS;
-    uart_cfg.USART_StopBits = UART_StopBits_1Bit;
-    uart_cfg.USART_BaudRate = 9600;
-    uart_cfg.USART_Sampling = UART_Sampling_16;
-    uart_cfg.USART_HW_FlowCTRL = UART_HW_FLW_CTRL_RTS_DIS;
-    uart_cfg.USART_IRQ_Enable = UART_IRQ_ENABLE_TXEIE_RXNEIE;
-    uart_cfg.P_IRQ_CallBack = UART_CallBack;
+    cfg.BaseConfig.TIMERx = TIMER3;
+    cfg.OCConfig = &ocCfg;
+    cfg.OCConfig->TIMER_Channel   = TIMER_Channel_1;
+    cfg.OCConfig->TIMER_Frequency = 1000;
 
-    MCAL_UART_Init(USART1, &uart_cfg);
+    MCAL_Timer_PWM_Init(&cfg, 0);
 
-    while (1) {
+    while(1){
+        for(int duty = 0; duty <= 100; duty++){
+        	MCAL_Timer_PWM_SetDuty(&cfg, duty);
+            for(volatile int d=0; d<2000; d++);
+        }
+        for(int duty = 100; duty >= 0; duty--){
+        	MCAL_Timer_PWM_SetDuty(&cfg, duty);
+            for(volatile int d=0; d<2000; d++);
+        }
     }
-
-    return 0;
 }
-

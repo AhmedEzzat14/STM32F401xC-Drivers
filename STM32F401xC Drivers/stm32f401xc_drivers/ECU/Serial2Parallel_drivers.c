@@ -46,21 +46,21 @@ void HAL_Serial2Parallel_Init(GPIO_TypeDef *GPIOx_data, GPIO_TypeDef *GPIOx_shif
 	data.GPIO_MODE = GPIO_MODE_OP;
 	data.GPIO_TYPE = GPIO_TYPE_PP;
 	data.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	data.GPIO_PU_PD = GPIO__PU_PD_NONE;
+	data.GPIO_PU_PD = GPIO_PU_PD_NONE;
 
 	GPIO_PinConfig_t shift;
 	shift.GPIO_PinNumber = S2P_pin->S2P_ShiftCLK_Pin;
 	shift.GPIO_MODE = GPIO_MODE_OP;
 	shift.GPIO_TYPE = GPIO_TYPE_PP;
 	shift.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	shift.GPIO_PU_PD = GPIO__PU_PD_NONE;
+	shift.GPIO_PU_PD = GPIO_PU_PD_NONE;
 
 	GPIO_PinConfig_t latch;
 	latch.GPIO_PinNumber = S2P_pin->S2P_LatchCLK_Pin;
 	latch.GPIO_MODE = GPIO_MODE_OP;
 	latch.GPIO_TYPE = GPIO_TYPE_PP;
 	latch.GPIO_Output_Speed = GPIO_SPEED_LOW;
-	latch.GPIO_PU_PD = GPIO__PU_PD_NONE;
+	latch.GPIO_PU_PD = GPIO_PU_PD_NONE;
 
 	MCAL_GPIO_Init(G_GPIOx_data, &data);
 	MCAL_GPIO_Init(G_GPIOx_shift, &shift);

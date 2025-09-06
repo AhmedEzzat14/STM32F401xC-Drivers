@@ -1,0 +1,11 @@
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:30:13:MCAL_Timer_Start	16	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:35:13:MCAL_Timer_Stop	16	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:40:13:MCAL_Timer_PWM_Start	16	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:44:13:MCAL_Timer_PWM_Stop	16	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:56:6:MCAL_Timer_Init	24	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:112:6:MCAL_Timer_DeInit	24	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:137:6:MCAL_Timer_PWM_Init	24	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:216:6:MCAL_Timer_PWM_SetDuty	32	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:240:6:MCAL_Timer_Encoder_Init	16	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:244:10:MCAL_Timer_Encoder_GetCounts	16	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:249:6:MCAL_Timer_Encoder_SetCounts	16	static

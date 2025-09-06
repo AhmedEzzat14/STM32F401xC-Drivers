@@ -1,3 +1,2 @@
-../Src/main.c:31:6:Clock_Init	4	static
-../Src/main.c:41:6:UART_CallBack	16	static
-../Src/main.c:51:5:main	40	static
+../Src/main.c:29:6:Clock_Init	4	static
+../Src/main.c:35:5:main	88	static

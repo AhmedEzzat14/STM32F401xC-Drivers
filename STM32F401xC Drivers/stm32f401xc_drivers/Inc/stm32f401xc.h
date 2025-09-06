@@ -66,6 +66,12 @@
 #define SPI2_BASE											0x40003800UL
 #define SPI3_BASE											0x40003C00UL
 
+// TIMER 2 & 3 & 4 & 5
+#define TIMER2_BASE											0x40000000UL
+#define TIMER3_BASE											0x40000400UL
+#define TIMER4_BASE											0x40000800UL
+#define TIMER5_BASE											0x40000C00UL
+
 //---------------------------------------
 // Base Addresses for APB2 Peripherals
 //---------------------------------------
@@ -94,6 +100,9 @@
 // SPI 1
 #define SPI1_BASE											0x40013000UL
 #define SPI4_BASE											0x40013400UL
+
+// TIMER 1
+#define TIMER1_BASE											0x40010000UL
 
 //---------------------------------------
 // Base Addresses for AHB2 Peripherals
@@ -223,6 +232,32 @@ typedef struct{
 	volatile uint32_t I2SPR	;
 }SPI_Typedef;
 
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+// Peripheral Register: TIMERS
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+typedef struct{
+	volatile uint32_t CR1		;
+	volatile uint32_t CR2		;
+	volatile uint32_t SMCR		;
+	volatile uint32_t DIER		;
+	volatile uint32_t SR		;
+	volatile uint32_t EGR		;
+	volatile uint32_t CCMR1		;
+	volatile uint32_t CCMR2		;
+	volatile uint32_t CCER		;
+	volatile uint32_t CNT		;
+	volatile uint32_t PSC		;
+	volatile uint32_t ARR		;
+	volatile uint32_t RCR		;
+	volatile uint32_t CCR1		;
+	volatile uint32_t CCR2		;
+	volatile uint32_t CCR3		;
+	volatile uint32_t CCR4		;
+	volatile uint32_t BDTR		;
+	volatile uint32_t DCR		;
+	volatile uint32_t DMAR		;
+}TIMER_TypeDef;
+
 //============================================================
 
 //-*-*-*-*-*-*-*-*-*-*-*-
@@ -252,6 +287,12 @@ typedef struct{
 #define SPI2								((SPI_Typedef *)SPI2_BASE)
 #define SPI3								((SPI_Typedef *)SPI3_BASE)
 
+#define TIMER1								((TIMER_TypeDef *)TIMER1_BASE)
+#define TIMER2								((TIMER_TypeDef *)TIMER2_BASE)
+#define TIMER3								((TIMER_TypeDef *)TIMER3_BASE)
+#define TIMER4								((TIMER_TypeDef *)TIMER4_BASE)
+#define TIMER5								((TIMER_TypeDef *)TIMER5_BASE)
+
 //-*-*-*-*-*-*-*-*-*-*-*-
 // Clock Enable Macros:
 //-*-*-*-*-*-*-*-*-*-*-*-
@@ -274,6 +315,12 @@ typedef struct{
 #define RCC_SPI2_CLK_EN()					(RCC->APB1ENR |= (1 << 14))
 #define RCC_SPI3_CLK_EN()					(RCC->APB1ENR |= (1 << 15))
 
+#define RCC_TIMER1_CLK_EN()					(RCC->APB2ENR |= (1 << 0))
+#define RCC_TIMER2_CLK_EN()					(RCC->APB1ENR |= (1 << 0))
+#define RCC_TIMER3_CLK_EN()					(RCC->APB1ENR |= (1 << 1))
+#define RCC_TIMER4_CLK_EN()					(RCC->APB1ENR |= (1 << 2))
+#define RCC_TIMER5_CLK_EN()					(RCC->APB1ENR |= (1 << 3))
+
 // Reset
 #define RCC_SYSCFG_CLK_RST_SET()			(RCC->APB2RSTR |= (1 << 14))
 
@@ -291,6 +338,12 @@ typedef struct{
 #define RCC_SPI1_CLK_RST_SET()				(RCC->APB2RSTR |= (1 << 12))
 #define RCC_SPI2_CLK_RST_SET()				(RCC->APB1RSTR |= (1 << 14))
 #define RCC_SPI3_CLK_RST_SET()				(RCC->APB1RSTR |= (1 << 15))
+
+#define RCC_TIMER1_CLK_RST_SET()			(RCC->APB2RSTR |= (1 << 0))
+#define RCC_TIMER2_CLK_RST_SET()			(RCC->APB1RSTR |= (1 << 0))
+#define RCC_TIMER3_CLK_RST_SET()			(RCC->APB1RSTR |= (1 << 1))
+#define RCC_TIMER4_CLK_RST_SET()			(RCC->APB1RSTR |= (1 << 2))
+#define RCC_TIMER5_CLK_RST_SET()			(RCC->APB1RSTR |= (1 << 3))
 
 //-*-*-*-*-
 // IVT
@@ -323,6 +376,15 @@ typedef struct{
 #define SPI3_IRQ			51
 #define SPI4_IRQ			84
 
+#define TIMER1_BRK_IRQ		24
+#define TIMER1_UP_IRQ		25
+#define TIMER1_TRIG_COM_IRQ	26
+#define TIMER1_CC_IRQ		27
+#define TIMER2_IRQ			28
+#define TIMER3_IRQ			29
+#define TIMER4_IRQ			30
+#define TIMER5_IRQ			50
+
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 //NVIC IRQ Enable/Disable macros
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -344,6 +406,15 @@ typedef struct{
 #define NVIC_IRQ_SPI3_EN()					(NVIC_ISER1_BASE |= (1 << (SPI3_IRQ - 32)))
 #define NVIC_IRQ_SPI4_EN()					(NVIC_ISER2_BASE |= (1 << (SPI4_IRQ - 64)))
 
+#define NVIC_IRQ_TIMER1_BRK_EN()			(NVIC_ISER0_BASE |= (1 << 24))
+#define NVIC_IRQ_TIMER1_UP_EN()				(NVIC_ISER0_BASE |= (1 << 25))
+#define NVIC_IRQ_TIMER1_TRIG_COM_EN()		(NVIC_ISER0_BASE |= (1 << 26))
+#define NVIC_IRQ_TIMER1_CC_EN()				(NVIC_ISER0_BASE |= (1 << 27))
+#define NVIC_IRQ_TIMER2_EN()				(NVIC_ISER0_BASE |= (1 << 28))
+#define NVIC_IRQ_TIMER3_EN()				(NVIC_ISER0_BASE |= (1 << 29))
+#define NVIC_IRQ_TIMER4_EN()				(NVIC_ISER0_BASE |= (1 << 30))
+#define NVIC_IRQ_TIMER5_EN()				(NVIC_ISER1_BASE |= (1 << (TIMER5_IRQ - 32)))
+
 // Disable
 #define NVIC_IRQ6_EXTI0_DIS()				(NVIC_ICER0_BASE |= (1 << 6))
 #define NVIC_IRQ7_EXTI1_DIS()				(NVIC_ICER0_BASE |= (1 << 7))
@@ -361,6 +432,15 @@ typedef struct{
 #define NVIC_IRQ_SPI2_DIS()					(NVIC_ICER1_BASE |= (1 << (SPI2_IRQ - 32)))
 #define NVIC_IRQ_SPI3_DIS()					(NVIC_ICER1_BASE |= (1 << (SPI3_IRQ - 32)))
 #define NVIC_IRQ_SPI4_DIS()					(NVIC_ICER2_BASE |= (1 << (SPI1_IRQ - 64)))
+
+#define NVIC_IRQ_TIMER1_BRK_DIS()			(NVIC_ICER0_BASE |= (1 << 24))
+#define NVIC_IRQ_TIMER1_UP_DIS()			(NVIC_ICER0_BASE |= (1 << 25))
+#define NVIC_IRQ_TIMER1_TRIG_COM_DIS()		(NVIC_ICER0_BASE |= (1 << 26))
+#define NVIC_IRQ_TIMER1_CC_DIS()			(NVIC_ICER0_BASE |= (1 << 27))
+#define NVIC_IRQ_TIMER2_DIS()				(NVIC_ICER0_BASE |= (1 << 28))
+#define NVIC_IRQ_TIMER3_DIS()				(NVIC_ICER0_BASE |= (1 << 29))
+#define NVIC_IRQ_TIMER4_DIS()				(NVIC_ICER0_BASE |= (1 << 30))
+#define NVIC_IRQ_TIMER5_DIS()				(NVIC_ICER1_BASE |= (1 << (TIMER5_IRQ - 32)))
 
 //-*-*-*-*-*-*-*-*-*-*-*-
 // Generic Macros:

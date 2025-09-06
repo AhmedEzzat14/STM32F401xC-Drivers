@@ -58,6 +58,7 @@ void MCAL_SysTicK_StartTimer(uint32_t ReloadValue);
 void MCAL_SysTicK_StopTimer(void);
 
 void MCAL_SysTicK_SetDelay_ms(uint32_t Delay_Time_ms);
+void MCAL_SysTicK_SetDelay_us(uint32_t Delay_Time_us);
 
 uint32_t MCAL_SysTicK_GetElapsedTime_SingleShot(void);
 uint32_t MCAL_SysTicK_GetRemainingTime_SingleShot(void);

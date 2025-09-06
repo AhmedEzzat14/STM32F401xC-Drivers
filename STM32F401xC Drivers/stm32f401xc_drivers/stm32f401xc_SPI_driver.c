@@ -18,6 +18,9 @@
  * =======================================================
  */
 SPI_PinConfig_t *G_SPI_Config[3] = {NULL, NULL, NULL};
+uint8_t G_SPI_Index;
+
+SPI_Typedef *G_SPIx = NULL;
 
 //============================================================
 
@@ -84,6 +87,8 @@ void SPI3_IRQHandler(void){
  * =================================================
  */
 void MCAL_SPI_Init(SPI_Typedef *SPIx, SPI_PinConfig_t *SPI_Config){
+	G_SPIx = SPIx;
+
 	// Safety Registers
 	uint16_t temp_CR1 = 0;
 	uint16_t temp_CR2 = 0;
@@ -93,16 +98,19 @@ void MCAL_SPI_Init(SPI_Typedef *SPIx, SPI_PinConfig_t *SPI_Config){
 		G_SPI_Config[SPI1_Index] = SPI_Config;
 		RCC_SPI1_CLK_EN();
 		MCAL_SPI_SetPins(SPI1);
+		G_SPI_Index = SPI1_Index;
 	}
 	else if(SPIx == SPI2){
 		G_SPI_Config[SPI2_Index] = SPI_Config;
 		RCC_SPI1_CLK_EN();
 		MCAL_SPI_SetPins(SPI2);
+		G_SPI_Index = SPI2_Index;
 	}
 	else if(SPIx == SPI3){
 		G_SPI_Config[SPI3_Index] = SPI_Config;
 		RCC_SPI3_CLK_EN();
 		MCAL_SPI_SetPins(SPI3);
+		G_SPI_Index = SPI3_Index;
 	}
 
 	SPIx->CR1 = 0;
@@ -175,6 +183,41 @@ void MCAL_SPI_DeInit(SPI_Typedef *SPIx){
 		RCC_SPI3_CLK_RST_SET();
 		NVIC_IRQ_SPI3_DIS();
 	}
+}
+
+void MCAL_SPI_SendData(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status){
+	if((G_SPI_Config[G_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_2Lines) | (G_SPI_Config[G_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_1Line_Transmit_Only)){
+		if(Polling_Enable == pollin_status){
+			while(!(G_SPIx->SR & (1 << 1)));
+			G_SPIx->DR =  (*PxBuffer);
+		}
+		else{
+			G_SPIx->DR =  (*PxBuffer);
+		}
+	}
+	else{
+		/* To Do */
+	}
+}
+
+void MCAL_SPI_ReceiveData(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status){
+	if((G_SPI_Config[G_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_2Lines_RXONLY) | (G_SPI_Config[G_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_1Line_Receive_Only)){
+		if(Polling_Enable == pollin_status){
+			while(!(G_SPIx->SR & (1 << 0)));
+			(*PxBuffer) = G_SPIx->DR;
+		}
+		else{
+			(*PxBuffer) = G_SPIx->DR;
+		}
+	}
+	else{
+		/* To Do */
+	}
+}
+
+void MCAL_SPI_Transceive(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status){
+	MCAL_SPI_SendData(PxBuffer, pollin_status);
+	MCAL_SPI_ReceiveData(PxBuffer, pollin_status);
 }
 
 static void MCAL_SPI_SetPins(SPI_Typedef *SPIx){
@@ -272,63 +315,4 @@ static void MCAL_SPI_SetPins(SPI_Typedef *SPIx){
 		Pin_Config.GPIO_AFx = GPIO_AF5;
 		MCAL_GPIO_Init(GPIOA, &Pin_Config);
 	}
-}
-
-void MCAL_SPI_SendData(SPI_Typedef *SPIx, uint16_t *PxBuffer, Polling_Mechanism_t pollin_status){
-	uint8_t L_SPI_Index;
-
-	if(SPIx == SPI1){
-		L_SPI_Index = SPI1_Index;
-	}
-	else if(SPIx == SPI2){
-		L_SPI_Index = SPI2_Index;
-	}
-	else if(SPIx == SPI3){
-		L_SPI_Index = SPI3_Index;
-	}
-
-	if((G_SPI_Config[L_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_2Lines) | (G_SPI_Config[L_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_1Line_Transmit_Only)){
-		if(Polling_Enable == pollin_status){
-			while(!(SPIx->SR & (1 << 1)));
-			SPIx->DR =  (*PxBuffer);
-		}
-		else{
-			SPIx->DR =  (*PxBuffer);
-		}
-	}
-	else{
-		/* To Do */
-	}
-}
-
-void MCAL_SPI_ReceiveData(SPI_Typedef *SPIx, uint16_t *PxBuffer, Polling_Mechanism_t pollin_status){
-	uint8_t L_SPI_Index;
-
-	if(SPIx == SPI1){
-		L_SPI_Index = SPI1_Index;
-	}
-	else if(SPIx == SPI2){
-		L_SPI_Index = SPI2_Index;
-	}
-	else if(SPIx == SPI3){
-		L_SPI_Index = SPI3_Index;
-	}
-
-	if((G_SPI_Config[L_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_2Lines_RXONLY) | (G_SPI_Config[L_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_1Line_Receive_Only)){
-		if(Polling_Enable == pollin_status){
-			while(!(SPIx->SR & (1 << 0)));
-			(*PxBuffer) = SPIx->DR;
-		}
-		else{
-			(*PxBuffer) = SPIx->DR;
-		}
-	}
-	else{
-		/* To Do */
-	}
-}
-
-void MCAL_SPI_Transceive(SPI_Typedef *SPIx, uint16_t *PxBuffer, Polling_Mechanism_t pollin_status){
-	MCAL_SPI_SendData(SPIx, PxBuffer, pollin_status);
-	MCAL_SPI_ReceiveData(SPIx, PxBuffer, pollin_status);
 }

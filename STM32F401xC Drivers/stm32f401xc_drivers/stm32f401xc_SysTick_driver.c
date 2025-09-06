@@ -50,7 +50,23 @@ void MCAL_SysTicK_StopTimer(void){
 
 void MCAL_SysTicK_SetDelay_ms(uint32_t Delay_Time_ms){
 	// When Select  Clock Source = 25Mhz / 8
-	uint32_t ticks = Delay_Time_ms;
+	uint32_t ticks = (uint32_t)(Delay_Time_ms * 3125.0);
+
+	// Reset Timer
+	SysTick->VAL = 0;
+
+	if((ticks >= 0x00000001) && (ticks < 0x00FFFFFF)){
+		MCAL_SysTicK_StartTimer(ticks);
+
+		// Wait till Timer Flag is raised
+		while(0 == GET_BIT(SysTick->CTRL, COUNTFLAG));
+		MCAL_SysTicK_StopTimer();
+	}
+}
+
+void MCAL_SysTicK_SetDelay_us(uint32_t Delay_Time_us){
+	// When Select  Clock Source = 25Mhz / 8
+	uint32_t ticks = (uint32_t)(Delay_Time_us * 3.125);
 
 	// Reset Timer
 	SysTick->VAL = 0;
