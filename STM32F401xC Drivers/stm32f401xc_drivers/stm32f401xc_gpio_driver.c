@@ -57,7 +57,6 @@ void MCAL_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_PinConfig_t *PinConfig){
             GPIOx->AFR[0] |= (PinConfig->GPIO_AFx << (4 * pin));
         }
         else if((pin >= 8) && (pin < 16)){
-
             GPIOx->AFR[1] &= ~(0xF << (4 * (pin - 8)));
             GPIOx->AFR[1] |= (PinConfig->GPIO_AFx << (4 * (pin - 8)));
         }

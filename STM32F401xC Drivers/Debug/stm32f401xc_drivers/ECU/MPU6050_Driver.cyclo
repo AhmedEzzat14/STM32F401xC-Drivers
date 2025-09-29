@@ -1,0 +1,7 @@
+../stm32f401xc_drivers/ECU/MPU6050_Driver.c:32:6:HAL_MPU6050_Init	3
+../stm32f401xc_drivers/ECU/MPU6050_Driver.c:68:6:HAL_MPU6050_Write	2
+../stm32f401xc_drivers/ECU/MPU6050_Driver.c:81:6:HAL_MPU6050_Read	1
+../stm32f401xc_drivers/ECU/MPU6050_Driver.c:90:6:HAL_MPU6050_Calculate_Angles	1
+../stm32f401xc_drivers/ECU/MPU6050_Driver.c:155:9:HAL_MPU6050_PitchVal	1
+../stm32f401xc_drivers/ECU/MPU6050_Driver.c:159:9:HAL_MPU6050_YawVal	1
+../stm32f401xc_drivers/ECU/MPU6050_Driver.c:163:9:HAL_MPU6050_RollVal	1

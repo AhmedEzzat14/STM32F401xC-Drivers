@@ -5,19 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/main.c \
-../Src/syscalls.c \
-../Src/sysmem.c 
+../Src/HexParser.c \
+../Src/main.c 
 
 OBJS += \
-./Src/main.o \
-./Src/syscalls.o \
-./Src/sysmem.o 
+./Src/HexParser.o \
+./Src/main.o 
 
 C_DEPS += \
-./Src/main.d \
-./Src/syscalls.d \
-./Src/sysmem.d 
+./Src/HexParser.d \
+./Src/main.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,7 +24,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/HexParser.cyclo ./Src/HexParser.d ./Src/HexParser.o ./Src/HexParser.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su
 
 .PHONY: clean-Src
 

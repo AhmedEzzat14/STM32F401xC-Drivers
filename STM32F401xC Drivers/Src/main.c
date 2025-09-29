@@ -15,53 +15,55 @@
  *
  ******************************************************************************
  */
+#include "stm32f401xc_FMI_driver.h"
+#include "stm32f401xc_SysTick_driver.h"
+
+#include "stm32f401xc_RCC_driver.h"
+#include "stm32f401xc_gpio_driver.h"
 #include "stm32f401xc_EXTI_driver.h"
-#include "Led_Matrix_driver.h"
-#include "SevenSegment_driver.h"
-#include "DAC_driver.h"
-#include "Serial2Parallel_drivers.h"
-#include "IR_driver.h"
+
 #include "stm32f401xc_USART_driver.h"
 #include "stm32f401xc_SPI_driver.h"
+#include "stm32f401xc_I2C_driver.h"
 #include "stm32f401xc_Timer_driver.h"
 
+#include "IR_driver.h"
 
-void Clock_Init(void){
+
+void Clock_Init(void) {
 	RCC_GPIOA_CLK_EN();
 	RCC_GPIOB_CLK_EN();
 	RCC_SYSCFG_CLK_EN();
 }
 
 int main(void){
+    RCC->CR |= (1 << 16);
+    while (!(RCC->CR & (1 << 17)));
+    RCC->CFGR &= ~(0x3 << 0);
+    RCC->CFGR |= (0x1 << 0);
+    while (((RCC->CFGR >> 2) & 0x3) != 0x1);
+
     Clock_Init();
+    //SevSeg_Ini();
 
-    GPIO_PinConfig_t pinCfg;
-    pinCfg.GPIO_PinNumber = GPIO_PIN_6;
-    pinCfg.GPIO_MODE = GPIO_MODE_AF;
-    pinCfg.GPIO_Output_Speed = GPIO_SPEED_HIGH;
-    pinCfg.GPIO_TYPE = GPIO_TYPE_PP;
-    pinCfg.GPIO_PU_PD = GPIO_PU_PD_NONE;
-    pinCfg.GPIO_AFx = GPIO_AF2;
-    MCAL_GPIO_Init(GPIOA, &pinCfg);
+    EXTI_PinConfig_t A_xCfg;
+    A_xCfg.EXTI_PIN= EXTI0_PB0;
+    A_xCfg.EXTI_Enable = EXTI_IRQ_EN;
+    A_xCfg.EXTI_EdgeSelect = EXTI_TRIGGER_FALLING;
+    A_xCfg.P_IRQ_CallBack = HAL_IR_GetTime;
 
-    Timer_Config_t cfg;
-    Timer_OutputCompare_Config_t ocCfg;
+    MCAL_EXTI_GPIO_Init(&A_xCfg);
 
-    cfg.BaseConfig.TIMERx = TIMER3;
-    cfg.OCConfig = &ocCfg;
-    cfg.OCConfig->TIMER_Channel   = TIMER_Channel_1;
-    cfg.OCConfig->TIMER_Frequency = 1000;
+    SysTick_Config_t STK_cfg;
+    STK_cfg.SysTick_InterruptEnable = SysTick_Interrupt_EN;
+    STK_cfg.SysTick_CLKSource = SysTick_CLK_AHB_8;
+    MCAL_SysTicK_Init(&STK_cfg);
 
-    MCAL_Timer_PWM_Init(&cfg, 0);
+    uint8_t G_value = 0;
 
-    while(1){
-        for(int duty = 0; duty <= 100; duty++){
-        	MCAL_Timer_PWM_SetDuty(&cfg, duty);
-            for(volatile int d=0; d<2000; d++);
-        }
-        for(int duty = 100; duty >= 0; duty--){
-        	MCAL_Timer_PWM_SetDuty(&cfg, duty);
-            for(volatile int d=0; d<2000; d++);
-        }
+    while (1){
+	G_value = get_value();
     }
+
+    return 0 ;
 }

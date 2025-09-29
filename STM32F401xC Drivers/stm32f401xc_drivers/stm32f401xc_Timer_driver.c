@@ -14,7 +14,7 @@
 
 /*
  * =======================================================
- * 					  Generic Variables
+ * 		    Generic Variables
  * =======================================================
  */
 Timer_Config_t *G_Timer_config = NULL;
@@ -23,7 +23,7 @@ Timer_Config_t *G_Timer_config = NULL;
 
 /*
  * =======================================================
- * 					Generic Functions
+ * 		   Generic Functions
  * =======================================================
  *
  */
@@ -50,7 +50,7 @@ static void MCAL_Timer_PWM_Stop(Timer_Config_t *Timer_Config){
 
 /*
  * ===================================================
- * 		 APIs Supported by "MCAL Timer DRIVER"
+ * 	 APIs Supported by "MCAL Timer DRIVER"
  * ===================================================
  */
 void MCAL_Timer_Init(Timer_Config_t *Timer_Config){
