@@ -16,23 +16,23 @@
 //============================================================
 typedef struct{
 	uint16_t 	  EXTI_LineNumber ;
-	GPIO_TypeDef *GPIOx			  ;
+	GPIO_TypeDef      *GPIOx	  ;
 	uint16_t	  GPIO_PinNumber  ;
 	uint16_t 	  IRQ_Number	  ;
 }EXTI_GPIO_Mapping_t;
 
 
 typedef struct{
-	EXTI_GPIO_Mapping_t EXTI_PIN		;		 // Specifies the External interrupt  GPIO mapping.
-												 // This parameter must be set based on @ref EXTI_define
+	EXTI_GPIO_Mapping_t EXTI_PIN		;	 // Specifies the External interrupt  GPIO mapping.
+							 // This parameter must be set based on @ref EXTI_define
 
-	uint8_t  			EXTI_Enable		;        // Enable Or Disable the EXTI IRQ (That Will Enable the IRQ MASK in EXTI and Also on the NVIC Interrupt Controller)
-												 // This parameter must be set based on @ref EXTI_IRQ_define
+	uint8_t  	    EXTI_Enable		;        // Enable Or Disable the EXTI IRQ (That Will Enable the IRQ MASK in EXTI and Also on the NVIC Interrupt Controller)
+							 // This parameter must be set based on @ref EXTI_IRQ_define
 
-	uint8_t 			EXTI_EdgeSelect ;	     // Specifies RISING or Falling or Both trigger .
-												 // This parameter must be set based on @ref EXTI_Trigger_define
+	uint8_t 	    EXTI_EdgeSelect ;	     	 // Specifies RISING or Falling or Both trigger .
+							 // This parameter must be set based on @ref EXTI_Trigger_define
 
-	void(* P_IRQ_CallBack)(void);				 // Set the C Function() which will be called once the IRQ  Happen
+	void(* P_IRQ_CallBack)(void);			 // Set the C Function() which will be called once the IRQ  Happen
 }EXTI_PinConfig_t;
 
 //============================================================

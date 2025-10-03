@@ -35,37 +35,37 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := Drivers
+BUILD_ARTIFACT_NAME := STM32F401xC Drivers
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-Drivers.elf \
+STM32F401xC\ Drivers.elf \
 
 MAP_FILES += \
-Drivers.map \
+STM32F401xC\ Drivers.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-Drivers.list \
+STM32F401xC\ Drivers.list \
 
 OBJCOPY_HEX += \
-Drivers.hex \
+STM32F401xC\ Drivers.hex \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: Drivers.elf secondary-outputs
+main-build: STM32F401xC\ Drivers.elf secondary-outputs
 
 # Tool invocations
-Drivers.elf Drivers.map: $(OBJS) $(USER_OBJS) D:\Electric\ Programs\Embeded\ Systems\LearnInDepth\STM32F401xC\ Drivers\STM32F401CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -gdwarf-2 -o "Drivers.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Electric Programs\Embeded Systems\LearnInDepth\STM32F401xC Drivers\STM32F401CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+STM32F401xC\ Drivers.elf STM32F401xC\ Drivers.map: $(OBJS) $(USER_OBJS) D:\Electric\ Programs\Embeded\ Systems\LearnInDepth\STM32F401xC\ Drivers\STM32F401CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32F401xC Drivers.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Electric Programs\Embeded Systems\LearnInDepth\STM32F401xC Drivers\STM32F401CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F401xC Drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -74,19 +74,19 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Drivers.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Drivers.list"
+STM32F401xC\ Drivers.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "STM32F401xC Drivers.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Drivers.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "Drivers.hex"
+STM32F401xC\ Drivers.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "STM32F401xC Drivers.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) Drivers.elf Drivers.hex Drivers.list Drivers.map default.size.stdout
+	-$(RM) STM32F401xC\ Drivers.elf STM32F401xC\ Drivers.hex STM32F401xC\ Drivers.list STM32F401xC\ Drivers.map STM32F401xC\\ Drivers.elf default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)

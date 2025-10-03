@@ -20,10 +20,10 @@
 //------------------------------------------
 typedef struct{
 	uint8_t SysTick_InterruptEnable;   // Specifies GPIO pin to configure
- 							   	   	   // This Parameter can be set based on @ref SysTick_Interrupt_define
+ 					   // This Parameter can be set based on @ref SysTick_Interrupt_define
 
 	uint8_t SysTick_CLKSource;         // Specifies GPIO pin to configure
-							   	   	   // This Parameter can be set based on @ref SysTick_CLK_define
+					   // This Parameter can be set based on @ref SysTick_CLK_define
 }SysTick_Config_t;
 
 //============================================================
@@ -32,8 +32,8 @@ typedef struct{
 // Bit 1 TICKINT: SysTick exception request enable
 //	0: Counting down to zero does not assert the SysTick exception request
 //	1: Counting down to zero to asserts the SysTick exception request.
-#define SysTick_Interrupt_DIS			0
-#define SysTick_Interrupt_EN			1
+#define SysTick_Interrupt_DIS				0
+#define SysTick_Interrupt_EN				1
 
 // @ref SysTick_CLK_define
 // Bit 2 CLKSOURCE: Clock source selection
@@ -42,13 +42,13 @@ typedef struct{
 #define SysTick_CLK_AHB_8  				0
 #define SysTick_CLK_AHB	   				1
 
-#define COUNTFLAG						16
+#define COUNTFLAG					16
 
 //============================================================
 
 /*
  * ======================================================
- * 		 APIs Supported by "MCAL SysTick DRIVER"
+ * 	 APIs Supported by "MCAL SysTick DRIVER"
  * ======================================================
  */
 
@@ -63,7 +63,7 @@ void MCAL_SysTicK_SetDelay_us(uint32_t Delay_Time_us);
 uint32_t MCAL_SysTicK_GetElapsedTime_SingleShot(void);
 uint32_t MCAL_SysTicK_GetRemainingTime_SingleShot(void);
 
-void MCAL_SysTicK_SetInterval_Single(uint32_t Delay_Time_ms, void(* P_Function_CallBack)(void));
+uint8_t MCAL_SysTicK_SetInterval_Single(uint32_t Delay_Time_ms, void(* P_Function_CallBack)(void));
 void MCAL_SysTicK_SetInterval_Multi(uint32_t Delay_Time_ms, void(* P_Function_CallBack)(void));
 
 #endif /* INC_STM32F401XC_SYSTICK_DRIVER_H_ */

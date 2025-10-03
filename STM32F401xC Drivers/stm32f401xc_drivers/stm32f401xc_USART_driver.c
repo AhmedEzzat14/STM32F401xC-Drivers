@@ -159,6 +159,9 @@ void MCAL_UART_SendData(USART_TypeDef *USARTx, uint8_t *PxBuffer, PollingMechani
 	else{
 	    // This for Data sent 9-bit
 	    USARTx->DR = (*PxBuffer & (uint16_t)0x01FF);
+
+	    // Wait for TC (Transmission Complete)
+	    while(!((USARTx->SR) & (1 << 6)));
 	}
     }
     else{
@@ -224,6 +227,29 @@ void MCAL_UART_ReceiveData(USART_TypeDef *USARTx, uint8_t *PxBuffer, PollingMech
 		*(PxBuffer) = (USARTx->DR  & (uint8_t)0X7F);
 	    }
 	}
+    }
+}
+
+/**
+ * @brief Sends a string via UART
+ * @param USARTx: UART peripheral (USART1, USART2, or USART6)
+ * @param str: Pointer to null-terminated string
+ * @param polling_status: Enable for blocking mode, Disable for non-blocking
+ */
+void MCAL_UART_SendString(USART_TypeDef *USARTx, uint8_t *str, PollingMechanism_t polling_status){
+    uint16_t i = 0;
+
+    while(str[i] != '\0'){
+        // Wait for TXE (Transmit Data Register Empty)
+        while(!(USARTx->SR & (1 << 7)));
+
+        // Write data to DR
+        USARTx->DR = (str[i] & 0xFF);
+
+        // Wait for TC (Transmission Complete) before next character
+        while(!(USARTx->SR & (1 << 6)));
+
+        i++;
     }
 }
 

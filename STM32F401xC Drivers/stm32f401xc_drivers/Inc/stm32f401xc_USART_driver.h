@@ -175,4 +175,6 @@ void MCAL_UART_DeInit(USART_TypeDef *UARTx);
 void MCAL_UART_SendData(USART_TypeDef *USARTx, uint8_t *PxBuffer, PollingMechanism_t polling_status);
 void MCAL_UART_ReceiveData(USART_TypeDef *USARTx, uint8_t *PxBuffer, PollingMechanism_t polling_status);
 
+void MCAL_UART_SendString(USART_TypeDef *USARTx, uint8_t *str, PollingMechanism_t polling_status);
+
 #endif /* INC_STM32F401XC_USART_DRIVER_H_ */

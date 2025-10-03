@@ -138,7 +138,7 @@ void I2C2_EV_IRQHandler (void){
 
 /*
  * =================================================
- * 		   APIs Supported by "SPI DRIVER"
+ * 		   APIs Supported by "I2C DRIVER"
  * =================================================
  */
 void MCAL_I2C_Init(I2C_TypeDef * I2Cx, I2C_InitTypedef *I2C_Config){

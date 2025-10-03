@@ -15,6 +15,7 @@
  *
  ******************************************************************************
  */
+#include "stm32f401xc_FPU_driver.h"
 #include "stm32f401xc_FMI_driver.h"
 #include "stm32f401xc_SysTick_driver.h"
 
@@ -28,42 +29,69 @@
 #include "stm32f401xc_Timer_driver.h"
 
 #include "IR_driver.h"
+#include "Ultrasonic_driver.h"
+
+#include <stdio.h>
 
 
 void Clock_Init(void) {
-	RCC_GPIOA_CLK_EN();
-	RCC_GPIOB_CLK_EN();
-	RCC_SYSCFG_CLK_EN();
+    RCC_GPIOA_CLK_EN();
+    RCC_GPIOB_CLK_EN();
+    RCC_SYSCFG_CLK_EN();
 }
 
+void test_callback(void){
+    MCAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+}
+
+uint8_t test25 = '1';
+
 int main(void){
-    RCC->CR |= (1 << 16);
-    while (!(RCC->CR & (1 << 17)));
-    RCC->CFGR &= ~(0x3 << 0);
-    RCC->CFGR |= (0x1 << 0);
-    while (((RCC->CFGR >> 2) & 0x3) != 0x1);
+    MCAL_FPU_Enable();
+    MCAL_RCC_Init();
 
     Clock_Init();
-    //SevSeg_Ini();
 
-    EXTI_PinConfig_t A_xCfg;
-    A_xCfg.EXTI_PIN= EXTI0_PB0;
-    A_xCfg.EXTI_Enable = EXTI_IRQ_EN;
-    A_xCfg.EXTI_EdgeSelect = EXTI_TRIGGER_FALLING;
-    A_xCfg.P_IRQ_CallBack = HAL_IR_GetTime;
+    USART_PinConfig_t uart;
+    uart.USART_Mode = UART_MODE_TX_RX;
+    uart.USART_BaudRate = 9600;
+    uart.USART_IRQ_Enable = UART_IRQ_ENABLE_NONE;
+    uart.USART_StopBits = UART_StopBits_1Bit;
+    uart.USART_Sampling = UART_Sampling_16;
+    uart.USART_HW_FlowCTRL = UART_HW_FLW_CTRL_RTS_DIS;
+    uart.USART_ParityMode = UART_Parity_DIS;
+    uart.USART_PayLoad_Lenght = UART_PayLoad_Length_8Bits;
+    uart.P_IRQ_CallBack = NULL;
+    MCAL_UART_Init(USART1, &uart);
 
-    MCAL_EXTI_GPIO_Init(&A_xCfg);
+    SysTick_Config_t systick_cfg;
+    systick_cfg.SysTick_InterruptEnable = SysTick_Interrupt_DIS;
+    systick_cfg.SysTick_CLKSource = SysTick_CLK_AHB_8;
+    MCAL_SysTicK_Init(&systick_cfg);
 
-    SysTick_Config_t STK_cfg;
-    STK_cfg.SysTick_InterruptEnable = SysTick_Interrupt_EN;
-    STK_cfg.SysTick_CLKSource = SysTick_CLK_AHB_8;
-    MCAL_SysTicK_Init(&STK_cfg);
+    uint32_t distance;
+    uint8_t buffer[30];
 
-    uint8_t G_value = 0;
+    sprintf((char *)buffer, "Starting...\r\n");
+    MCAL_UART_SendData(USART1, buffer, Polling_Enable);
 
-    while (1){
-	G_value = get_value();
+    // Initialize echo pin
+    HAL_Ultrasonic_Echo(GPIOA, EXTI2_PA2);
+
+    while(1){
+        HAL_Ultrasonic_Trigger(GPIOA, GPIO_PIN_0);
+
+        Timer_Delay(TIMER2, 60, Unit_ms);
+
+        distance = HAL_Ultrasonic_GetDistance();
+
+        sprintf((char *)buffer, "Distance: %lu cm \r\n",
+                (unsigned long)distance);
+
+        MCAL_UART_SendString(USART1, buffer, Polling_Enable);
+
+        Timer_Delay(TIMER2, 200, Unit_ms);
     }
 
-    return 0 ;
+    return 0;
 }

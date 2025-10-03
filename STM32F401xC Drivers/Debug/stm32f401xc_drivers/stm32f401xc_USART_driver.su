@@ -2,5 +2,6 @@
 ../stm32f401xc_drivers/stm32f401xc_USART_driver.c:72:6:MCAL_UART_Init	16	static
 ../stm32f401xc_drivers/stm32f401xc_USART_driver.c:136:6:MCAL_UART_DeInit	16	static
 ../stm32f401xc_drivers/stm32f401xc_USART_driver.c:151:6:MCAL_UART_SendData	24	static
-../stm32f401xc_drivers/stm32f401xc_USART_driver.c:178:6:MCAL_UART_ReceiveData	24	static
-../stm32f401xc_drivers/stm32f401xc_USART_driver.c:230:13:MCAL_USART_SetPins	32	static
+../stm32f401xc_drivers/stm32f401xc_USART_driver.c:181:6:MCAL_UART_ReceiveData	24	static
+../stm32f401xc_drivers/stm32f401xc_USART_driver.c:239:6:MCAL_UART_SendString	32	static
+../stm32f401xc_drivers/stm32f401xc_USART_driver.c:256:13:MCAL_USART_SetPins	32	static

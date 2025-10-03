@@ -16,15 +16,19 @@
 //------------------------------
 // Base Addresses for Memories
 //------------------------------
-#define SYSTEM_MEMORY_BASE									0x1FFF0000UL
-#define FLASH_MEMORY_BASE									0x08000000UL
-#define SRAM_MEMORY_BASE								    0x20000000UL
+#define SYSTEM_MEMORY_BASE							0x1FFF0000UL
+#define FLASH_MEMORY_BASE							0x08000000UL
+#define SRAM_MEMORY_BASE							0x20000000UL
 
-#define Peripherals_BASE									0x40000000UL
+#define SCB_BASE								0xE000ED00UL
+
+#define SCB_CPACR 								(*(volatile uint32_t*)0xE000ED88)
+
+#define Peripherals_BASE							0x40000000UL
 
 #define Cortex_M4_Internal_Peripherals_BASE					0xE0000000UL
 
-#define SysTicK_BASE										0xE000E010UL
+#define SysTicK_BASE								0xE000E010UL
 
 //-----------------------------
 //Base addresses for NVIC
@@ -123,6 +127,28 @@
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+// Peripheral Register: SCB
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+typedef struct{
+    volatile uint32_t CPUID	 ;
+    volatile uint32_t ICSR	 ;
+    volatile uint32_t VTOR	 ;
+    volatile uint32_t AIRCR	 ;
+    volatile uint32_t SCR	 ;
+    volatile uint32_t CCR	 ;
+    volatile uint32_t SHPR1	 ;
+    volatile uint32_t SHPR2	 ;
+    volatile uint32_t SHPR3	 ;
+    volatile uint32_t SHCSR	 ;
+    volatile uint32_t CFSR	 ;
+    volatile uint32_t HFSR	 ;
+	     uint32_t RESERVED0	 ;
+    volatile uint32_t MMAR	 ;
+    volatile uint32_t BFAR	 ;
+    volatile uint32_t AFSR	 ;
+}SCB_TypeDef;
+
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 // Peripheral Register: FMI
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 typedef struct{
@@ -141,7 +167,7 @@ typedef struct{
      volatile uint32_t CTRL	 ;
      volatile uint32_t LOAD	 ;
      volatile uint32_t VAL	 ;
-     volatile uint32_t CALIB ;
+     volatile uint32_t CALIB 	 ;
 }SysTick_TypeDef;
 
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-

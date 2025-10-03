@@ -1,6 +1,7 @@
 ../stm32f401xc_drivers/stm32f401xc_USART_driver.c:47:6:USART1_IRQHandler	1
 ../stm32f401xc_drivers/stm32f401xc_USART_driver.c:72:6:MCAL_UART_Init	8
 ../stm32f401xc_drivers/stm32f401xc_USART_driver.c:136:6:MCAL_UART_DeInit	4
-../stm32f401xc_drivers/stm32f401xc_USART_driver.c:151:6:MCAL_UART_SendData	5
-../stm32f401xc_drivers/stm32f401xc_USART_driver.c:178:6:MCAL_UART_ReceiveData	5
-../stm32f401xc_drivers/stm32f401xc_USART_driver.c:230:13:MCAL_USART_SetPins	4
+../stm32f401xc_drivers/stm32f401xc_USART_driver.c:151:6:MCAL_UART_SendData	6
+../stm32f401xc_drivers/stm32f401xc_USART_driver.c:181:6:MCAL_UART_ReceiveData	5
+../stm32f401xc_drivers/stm32f401xc_USART_driver.c:239:6:MCAL_UART_SendString	4
+../stm32f401xc_drivers/stm32f401xc_USART_driver.c:256:13:MCAL_USART_SetPins	4

@@ -58,22 +58,22 @@ typedef struct{
 //------------------------------------------
 
 // @ref GPIO_PIN_define
-#define GPIO_PIN_0									0
-#define GPIO_PIN_1									1
-#define GPIO_PIN_2									2
-#define GPIO_PIN_3									3
-#define GPIO_PIN_4									4
-#define GPIO_PIN_5									5
-#define GPIO_PIN_6									6
-#define GPIO_PIN_7									7
-#define GPIO_PIN_8									8
-#define GPIO_PIN_9									9
-#define GPIO_PIN_10									10
-#define GPIO_PIN_11									11
-#define GPIO_PIN_12									12
-#define GPIO_PIN_13									12
-#define GPIO_PIN_14									13
-#define GPIO_PIN_15									14
+#define GPIO_PIN_0								0
+#define GPIO_PIN_1								1
+#define GPIO_PIN_2								2
+#define GPIO_PIN_3								3
+#define GPIO_PIN_4								4
+#define GPIO_PIN_5								5
+#define GPIO_PIN_6								6
+#define GPIO_PIN_7								7
+#define GPIO_PIN_8								8
+#define GPIO_PIN_9								9
+#define GPIO_PIN_10								10
+#define GPIO_PIN_11								11
+#define GPIO_PIN_12								12
+#define GPIO_PIN_13								12
+#define GPIO_PIN_14								13
+#define GPIO_PIN_15								14
 #define GPIO_PIN_ALL								15
 
 #define GPIO_PIN_MASK								(0x0000FFFFu)
@@ -99,7 +99,7 @@ typedef struct{
 // 1: Pull-up
 // 2: Pull-down
 // 3: Reserved
-#define GPIO_PU_PD_NONE							0x00000000u		 // No pull-up, pull-down (Floating)
+#define GPIO_PU_PD_NONE								0x00000000u	 // No pull-up, pull-down (Floating)
 #define GPIO_PU_PD_PU								0x00000001u      // Pull-up
 #define GPIO_PU_PD_PD								0x00000002u      // Pull-down
 

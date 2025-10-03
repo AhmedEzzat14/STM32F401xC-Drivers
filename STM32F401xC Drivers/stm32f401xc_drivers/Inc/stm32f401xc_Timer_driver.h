@@ -19,54 +19,54 @@
 // User Type Definitions (Structures)
 //------------------------------------------
 typedef struct{
-	uint8_t TXE  	 : 1; // TX buffer empty interrupt
-	uint8_t RXNE 	 : 1; // RX buffer not empty interrupt
-	uint8_t TCE 	 : 1; // Transmission complete interrupt
-	uint8_t Reserved : 5;
+    uint8_t TXE  	 : 1; // TX buffer empty interrupt
+    uint8_t RXNE 	 : 1; // RX buffer not empty interrupt
+    uint8_t TCE 	 : 1; // Transmission complete interrupt
+    uint8_t Reserved : 5;
 }S_TIMER_IRQ_SRC;
 
 typedef struct{
-	TIMER_TypeDef 	*TIMERx					 		;
-	uint8_t		   	TIMER_CounterMode		 		;
-	uint16_t	   	TIMER_Prescaler			 		;
-	uint16_t	   	TIMER_AutoReload			 	;
-	uint8_t		   	TIMER_CLKDivision		 		;
-	uint8_t		   	TIMER_RepetitionCounter	 		;
+    TIMER_TypeDef 		*TIMERx					 	;
+    uint8_t		   	TIMER_CounterMode		 		;
+    uint16_t	   	TIMER_Prescaler			 		;
+    uint16_t	   	TIMER_AutoReload			 	;
+    uint8_t		   	TIMER_CLKDivision		 		;
+    uint8_t		   	TIMER_RepetitionCounter	 		;
 }Timer_BaseConfig_t;
 
 typedef struct{
-	uint8_t 	TIMER_Channel			 		;
-	uint8_t  	TIMER_OutputCompare_Mode	 	;
-	uint32_t  	TIMER_OutputCompare_Pulse		;
-	uint8_t  	TIMER_OutputCompare_Polarity	;
-	uint8_t  	TIMER_Complement_Output	 		;
+    uint8_t 	TIMER_Channel			 		;
+    uint8_t  	TIMER_OutputCompare_Mode	 	;
+    uint32_t  	TIMER_OutputCompare_Pulse		;
+    uint8_t  	TIMER_OutputCompare_Polarity	;
+    uint8_t  	TIMER_Complement_Output	 		;
     uint32_t 	TIMER_Frequency					;
 }Timer_OutputCompare_Config_t;
 
 typedef struct{
-	uint8_t 	TIMER_Channel			 		;
-	uint8_t  	TIMER_InputCapture_Filter 		;
-	uint8_t  	TIMER_InputPrescaler 	 		;
-	uint8_t  	TIMER_InputPolarity 			;
+    uint8_t 	TIMER_Channel			 		;
+    uint8_t  	TIMER_InputCapture_Filter 		;
+    uint8_t  	TIMER_InputPrescaler 	 		;
+    uint8_t  	TIMER_InputPolarity 			;
     uint8_t 	TIMER_InputSelection			;
 }Timer_InputCapture_Config_t;
 
 typedef struct{
-	uint8_t  	TIMER_Encoder_Mode 		 		;
-	uint8_t  	TIMER_Input1Polarity 			;
-	uint8_t  	TIMER_InputCapture1_Filter 		;
-	uint8_t  	TIMER_Input2Polarity 			;
-	uint8_t  	TIMER_InputCapture2_Filter 		;
+    uint8_t  	TIMER_Encoder_Mode 		 		;
+    uint8_t  	TIMER_Input1Polarity 			;
+    uint8_t  	TIMER_InputCapture1_Filter 		;
+    uint8_t  	TIMER_Input2Polarity 			;
+    uint8_t  	TIMER_InputCapture2_Filter 		;
 }Timer_Encoder_Config_t;
 
 typedef struct {
-	Timer_BaseConfig_t 				BaseConfig		 ;
-	Timer_OutputCompare_Config_t   	*OCConfig		 ;
-	Timer_InputCapture_Config_t	   	*ICConfig		 ;
-	Timer_Encoder_Config_t 			*EncoderConfig	 ;
-	uint8_t  	   					TIMER_IRQ_Enable ;
+    Timer_BaseConfig_t 				BaseConfig		 ;
+    Timer_OutputCompare_Config_t   	*OCConfig		 ;
+    Timer_InputCapture_Config_t	   	*ICConfig		 ;
+    Timer_Encoder_Config_t 			*EncoderConfig	 ;
+    uint8_t  	   					TIMER_IRQ_Enable ;
     uint8_t 	   					TIMER_DMA_Enable ;
-	void (*P_IRQ_Callback)(S_TIMER_IRQ_SRC irq_src)	 ;
+    void (*P_IRQ_Callback)(S_TIMER_IRQ_SRC irq_src)	 ;
 } Timer_Config_t;
 
 //============================================================
@@ -218,10 +218,10 @@ the preloaded bits only when a COM event is generated. */
 //	1: Update interrupt enabled
 #define TIMER_IRQ_Mode_None					(uint32_t)(0)
 #define TIMER_IRQ_Mode_UIE					(uint32_t)(1 << 0)
-#define TIMER_IRQ_Mode_CC1IE				(uint32_t)(1 << 1)
-#define TIMER_IRQ_Mode_CC2IE				(uint32_t)(1 << 2)
-#define TIMER_IRQ_Mode_CC3IE				(uint32_t)(1 << 3)
-#define TIMER_IRQ_Mode_CC4IE				(uint32_t)(1 << 4)
+#define TIMER_IRQ_Mode_CC1IE					(uint32_t)(1 << 1)
+#define TIMER_IRQ_Mode_CC2IE					(uint32_t)(1 << 2)
+#define TIMER_IRQ_Mode_CC3IE					(uint32_t)(1 << 3)
+#define TIMER_IRQ_Mode_CC4IE					(uint32_t)(1 << 4)
 #define TIMER_IRQ_Mode_TIE					(uint32_t)(1 << 6)
 #define TIMER_IRQ_Mode_BIE					(uint32_t)(1 << 7)
 
@@ -241,5 +241,19 @@ void MCAL_Timer_PWM_SetDuty(Timer_Config_t *cfg, uint32_t DutyCycle);
 void MCAL_Timer_Encoder_Init(Timer_Config_t *Timer_Config);
 sint16_t MCAL_Timer_Encoder_GetCounts(Timer_Config_t *Timer_Config);
 void MCAL_Timer_Encoder_SetCounts(Timer_Config_t *Timer_Config, uint16_t Counts);
+
+void Timer_Delay(TIMER_TypeDef *Timer, float32 time, uint8_t uint);
+
+/*
+ * =======================================================
+ * 		   Generic Macros
+ * =======================================================
+ *
+ */
+#define Unit_ms					0
+#define Unit_us					1
+
+
+//============================================================
 
 #endif /* INC_STM32F401XC_TIMER_DRIVER_H_ */
