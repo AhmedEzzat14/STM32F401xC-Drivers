@@ -9,9 +9,9 @@
 ../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:381:6:MCAL_I2C_SlaveSendData	16	static
 ../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:385:9:MCAL_I2C_SlaveReceiveData	16	static
 ../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:397:13:MCAL_I2C_SetPins	32	static
-../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:450:13:I2C_SendAddress	16	static
-../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:466:13:I2C_GenrateStart	16	static
-../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:481:13:I2C_GenerateSTOP	16	static
-../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:492:20:I2C_GetFlagStatus	40	static
-../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:591:13:SlaveStates	24	static
-../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:646:13:I2C_AcknowledgeConfig	16	static
+../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:441:13:I2C_SendAddress	16	static
+../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:457:13:I2C_GenrateStart	16	static
+../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:472:13:I2C_GenerateSTOP	16	static
+../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:483:20:I2C_GetFlagStatus	40	static
+../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:582:13:SlaveStates	24	static
+../stm32f401xc_drivers/stm32f401xc_I2C_driver.c:637:13:I2C_AcknowledgeConfig	16	static

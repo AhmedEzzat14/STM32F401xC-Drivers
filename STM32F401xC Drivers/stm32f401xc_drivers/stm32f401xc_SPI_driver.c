@@ -26,7 +26,7 @@ SPI_Typedef *G_SPIx = NULL;
 
 /*
  * =======================================================
- * 					  Generic Macros
+ * 			Generic Macros
  * =======================================================
  */
 #define SPI1_Index		0
@@ -37,7 +37,7 @@ SPI_Typedef *G_SPIx = NULL;
 
 /*
  * =======================================================
- * 					Generic Functions
+ * 			Generic Functions
  * =======================================================
  */
 static void MCAL_SPI_SetPins(SPI_Typedef *SPIx);
@@ -116,9 +116,6 @@ void MCAL_SPI_Init(SPI_Typedef *SPIx, SPI_PinConfig_t *SPI_Config){
 	SPIx->CR1 = 0;
 	SPIx->CR2 = 0;
 
-	// Enable SPI
-	SPIx->CR1 |= (1 << 6);
-
 	// Choose SPI Mode
 	temp_CR1 |= SPI_Config->SPI_Mode;
 
@@ -167,6 +164,10 @@ void MCAL_SPI_Init(SPI_Typedef *SPIx, SPI_PinConfig_t *SPI_Config){
 
 	SPIx->CR1 = temp_CR1;
 	SPIx->CR2 = temp_CR2;
+
+
+	// Enable SPI
+	SPIx->CR1 |= (1 << 6);
 }
 
 void MCAL_SPI_DeInit(SPI_Typedef *SPIx){
@@ -185,7 +186,7 @@ void MCAL_SPI_DeInit(SPI_Typedef *SPIx){
 	}
 }
 
-void MCAL_SPI_SendData(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status){
+void MCAL_SPI_SendData(uint8_t *PxBuffer, Polling_Mechanism_t pollin_status){
 	if((G_SPI_Config[G_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_2Lines) | (G_SPI_Config[G_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_1Line_Transmit_Only)){
 		if(Polling_Enable == pollin_status){
 			while(!(G_SPIx->SR & (1 << 1)));
@@ -200,7 +201,7 @@ void MCAL_SPI_SendData(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status){
 	}
 }
 
-void MCAL_SPI_ReceiveData(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status){
+void MCAL_SPI_ReceiveData(uint8_t *PxBuffer, Polling_Mechanism_t pollin_status){
 	if((G_SPI_Config[G_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_2Lines_RXONLY) | (G_SPI_Config[G_SPI_Index]->SPI_Communication_Mode == SPI_Communication_MODE_1Line_Receive_Only)){
 		if(Polling_Enable == pollin_status){
 			while(!(G_SPIx->SR & (1 << 0)));
@@ -215,7 +216,7 @@ void MCAL_SPI_ReceiveData(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status)
 	}
 }
 
-void MCAL_SPI_Transceive(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status){
+void MCAL_SPI_Transceive(uint8_t *PxBuffer, Polling_Mechanism_t pollin_status){
 	MCAL_SPI_SendData(PxBuffer, pollin_status);
 	MCAL_SPI_ReceiveData(PxBuffer, pollin_status);
 }

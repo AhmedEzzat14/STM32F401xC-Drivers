@@ -11,6 +11,7 @@
 "./stm32f401xc_drivers/ECU/SevenSegment_driver.o"
 "./stm32f401xc_drivers/ECU/TFT_driver.o"
 "./stm32f401xc_drivers/ECU/Ultrasonic_driver.o"
+"./stm32f401xc_drivers/ECU/nrf24l01_driver.o"
 "./stm32f401xc_drivers/stm32f401xc_EXTI_driver.o"
 "./stm32f401xc_drivers/stm32f401xc_FMI_driver.o"
 "./stm32f401xc_drivers/stm32f401xc_FPU_driver.o"

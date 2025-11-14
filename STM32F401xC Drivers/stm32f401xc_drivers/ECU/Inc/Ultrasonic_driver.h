@@ -12,10 +12,11 @@
 #include "stm32f401xc_SysTick_driver.h"
 #include "stm32f401xc_Timer_driver.h"
 #include "stm32f401xc_EXTI_driver.h"
+#include "stm32f401xc_USART_driver.h"
 
 
 void HAL_Ultrasonic_Trigger(GPIO_TypeDef *GPIOx, uint16_t PinNumber);
-void HAL_Ultrasonic_Echo(GPIO_TypeDef *GPIOx, EXTI_GPIO_Mapping_t Exti_Number);
+void HAL_Ultrasonic_Echo(EXTI_GPIO_Mapping_t Exti_Number);
 uint32_t HAL_Ultrasonic_GetDistance(void);
 
 #endif /* ECU_INC_ULTRASONIC_DRIVER_H_ */

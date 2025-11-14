@@ -190,15 +190,15 @@ typedef enum{
 
 /*
  * =================================================
- * 		   APIs Supported by "SPI DRIVER"
+ * 	     APIs Supported by "SPI DRIVER"
  * =================================================
  */
 void MCAL_SPI_Init(SPI_Typedef *SPIx, SPI_PinConfig_t *SPI_Config);
 void MCAL_SPI_DeInit(SPI_Typedef *SPIx);
 
-void MCAL_SPI_SendData(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status);
-void MCAL_SPI_ReceiveData(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status);
+void MCAL_SPI_SendData(uint8_t *PxBuffer, Polling_Mechanism_t pollin_status);
+void MCAL_SPI_ReceiveData(uint8_t *PxBuffer, Polling_Mechanism_t pollin_status);
 
-void MCAL_SPI_Transceive(uint16_t *PxBuffer, Polling_Mechanism_t pollin_status);
+void MCAL_SPI_Transceive(uint8_t *PxBuffer, Polling_Mechanism_t pollin_status);
 
 #endif /* INC_STM32F401XC_SPI_DRIVER_H_ */

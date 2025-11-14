@@ -20,42 +20,42 @@
 // User Type Definitions (Structures)
 //------------------------------------------
 typedef struct{
-	uint8_t TXE  	 : 1; // TX buffer empty interrupt
-	uint8_t RXNE 	 : 1; // RX buffer not empty interrupt
-	uint8_t TCE 	 : 1; // Transmission complete interrupt
-	uint8_t Reserved : 5;
+    uint8_t TXE  	 : 1; // TX buffer empty interrupt
+    uint8_t RXNE 	 : 1; // RX buffer not empty interrupt
+    uint8_t TCE 	 : 1; // Transmission complete interrupt
+    uint8_t Reserved : 5;
 }S_USART_IRQ_SRC;
 
 typedef struct {
-	uint8_t USART_Mode;				// Specifies TX/RX Enable/Disable
-									// This parameter must be set base on @ref UART_MODE_define
+    uint8_t USART_Mode;				// Specifies TX/RX Enable/Disable
+    // This parameter must be set base on @ref UART_MODE_define
 
-	uint8_t USART_PayLoad_Lenght;	// Specifies Number of data bits transmitted or received in data frame
-								 	// This parameter must be set base on @ref UART_PayLoad_Length_define
+    uint8_t USART_PayLoad_Lenght;	// Specifies Number of data bits transmitted or received in data frame
+    // This parameter must be set base on @ref UART_PayLoad_Length_define
 
-	uint8_t USART_ParityMode;		// Specifies parity mode
-									// This parameter must be set base on @ref UART_Parity_define
+    uint8_t USART_ParityMode;		// Specifies parity mode
+    // This parameter must be set base on @ref UART_Parity_define
 
-	uint8_t USART_StopBits;			// Specifies the number of stop bits transmitted
-									// This parameter must be set base on @ref UART_StopBits_define
+    uint8_t USART_StopBits;			// Specifies the number of stop bits transmitted
+    // This parameter must be set base on @ref UART_StopBits_define
 
-	uint32_t USART_BaudRate;		// This member configures UART communication baudrate
-									// This parameter must be set base on @ref UART_BAUDRATE_define
+    uint32_t USART_BaudRate;		// This member configures UART communication baudrate
+    // This parameter must be set base on @ref UART_BAUDRATE_define
 
-	uint8_t USART_Sampling;			// This member configures UART Sampling Mode
-									// This parameter must be set base on @ref UART_Sampling_define
+    uint8_t USART_Sampling;			// This member configures UART Sampling Mode
+    // This parameter must be set base on @ref UART_Sampling_define
 
-	uint8_t USART_HW_FlowCTRL;		// Specifies whether hardware flow control enabled or disabled
-							  	    // This parameter must be set base on @ref UART_HW_FLW_CTRL_define
+    uint8_t USART_HW_FlowCTRL;		// Specifies whether hardware flow control enabled or disabled
+    // This parameter must be set base on @ref UART_HW_FLW_CTRL_define
 
-	uint8_t USART_IRQ_Enable;		// Specifies whether IRQ of USART is Enabled or Disabled
-							 	 	// This parameter must be set base on @ref UART_IRQ_ENABLE_define
+    uint8_t USART_IRQ_Enable;		// Specifies whether IRQ of USART is Enabled or Disabled
+    // This parameter must be set base on @ref UART_IRQ_ENABLE_define
 
-	void (*P_IRQ_CallBack)(S_USART_IRQ_SRC irq_src);	// Set the C function which will be call when interrupt happens
+    void (*P_IRQ_CallBack)(S_USART_IRQ_SRC irq_src);	// Set the C function which will be call when interrupt happens
 } USART_PinConfig_t;
 
 typedef enum {
-	Disable, Enable
+    Disable, Enable
 } PollingMechanism_t;
 
 //============================================================

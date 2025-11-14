@@ -1,5 +1,4 @@
-../stm32f401xc_drivers/ECU/Ultrasonic_driver.c:15:6:Echo_ISR	8	static
-../stm32f401xc_drivers/ECU/Ultrasonic_driver.c:33:6:HAL_Ultrasonic_Trigger	32	static
-../stm32f401xc_drivers/ECU/Ultrasonic_driver.c:61:6:HAL_Ultrasonic_Echo	48	static
-../stm32f401xc_drivers/ECU/Ultrasonic_driver.c:71:10:HAL_Ultrasonic_GetDistance	16	static
-../stm32f401xc_drivers/ECU/Ultrasonic_driver.c:96:10:HAL_Ultrasonic_GetDistance_Blocking	24	static
+../stm32f401xc_drivers/ECU/Ultrasonic_driver.c:14:6:Echo_ISR	8	static
+../stm32f401xc_drivers/ECU/Ultrasonic_driver.c:28:6:HAL_Ultrasonic_Trigger	32	static
+../stm32f401xc_drivers/ECU/Ultrasonic_driver.c:42:6:HAL_Ultrasonic_Echo	48	static
+../stm32f401xc_drivers/ECU/Ultrasonic_driver.c:52:10:HAL_Ultrasonic_GetDistance	16	static

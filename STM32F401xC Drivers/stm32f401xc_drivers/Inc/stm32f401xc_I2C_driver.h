@@ -36,32 +36,32 @@ typedef enum{ RST, SET }Flag_Status;
 typedef enum{ BUSY_FLAG, EV5_FLAG, EV6_FLAG, EV7_FLAG, EV8_FLAG, EV8_1_FLAG, EVENT_MASTER_BYTE_TRANSMITTING = ((uint32_t)0x00070080) }Status;
 
 typedef struct{
-	uint16_t	I2C_Dual_Address_EN;
-	uint16_t	I2C_Primary_Slave_Address;
-	uint16_t	I2C_Secondary_Slave_Address;
-	uint32_t 	I2C_Addressing_Slave_Mode; 		// @ref I2C_Addressing_Slave_define
+    uint16_t	I2C_Dual_Address_EN;
+    uint16_t	I2C_Primary_Slave_Address;
+    uint16_t	I2C_Secondary_Slave_Address;
+    uint32_t 	I2C_Addressing_Slave_Mode; 		// @ref I2C_Addressing_Slave_define
 }I2C_Slave_Device_Address;
 
 typedef struct{
-	uint32_t						I2C_CLK_Speed			 	; 	    // Specifies the clock frequency.
-                							 							// This parameter must be set to @I2C_SCLK_define
+    uint32_t						I2C_CLK_Speed			 	; 	    // Specifies the clock frequency.
+    // This parameter must be set to @I2C_SCLK_define
 
-	uint32_t 						I2C_ACK_Control			 	;  		// Enables or disables the acknowledgement.
-                                        								// This parameter can be a value of @ref I2C_Ack_define
+    uint32_t 						I2C_ACK_Control			 	;  		// Enables or disables the acknowledgement.
+    // This parameter can be a value of @ref I2C_Ack_define
 
-	uint32_t						I2C_CLK_StretchMode		 	;		// Specifies the Stretch Mode
-																		// @ref I2C_CLK_StretchMode_define
+    uint32_t						I2C_CLK_StretchMode		 	;		// Specifies the Stretch Mode
+    // @ref I2C_CLK_StretchMode_define
 
-	uint32_t 						I2C_General_Call_Address 	;		// Set the general address for devices
-																		// @ref I2C_General_Address_define
+    uint32_t 						I2C_General_Call_Address 	;		// Set the general address for devices
+    // @ref I2C_General_Address_define
 
-	uint32_t 						I2C_Mode					;		// Specifies the I2C mode.
-																		// ref I2C_Mode_define
+    uint32_t 						I2C_Mode					;		// Specifies the I2C mode.
+    // ref I2C_Mode_define
 
-	I2C_Slave_Device_Address I2C_Slave_Address					;
+    I2C_Slave_Device_Address I2C_Slave_Address					;
 
-	void(* P_Master_Event_CallBack)(Master_State state)			;		// Set the C Function() which will be called once the IRQ  Happen (Master)
-	void(* P_Slave_Event_CallBack)(Slave_State state)			;		// Set the C Function() which will be called once the IRQ  Happen (Slave)
+    void(* P_Master_Event_CallBack)(Master_State state)			;		// Set the C Function() which will be called once the IRQ  Happen (Master)
+    void(* P_Slave_Event_CallBack)(Slave_State state)			;		// Set the C Function() which will be called once the IRQ  Happen (Slave)
 
 }I2C_InitTypedef;
 
