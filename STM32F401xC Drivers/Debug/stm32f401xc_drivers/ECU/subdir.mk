@@ -40,7 +40,7 @@ C_DEPS += \
 
 # Each subdirectory must supply rules for building sources it contributes
 stm32f401xc_drivers/ECU/%.o stm32f401xc_drivers/ECU/%.su stm32f401xc_drivers/ECU/%.cyclo: ../stm32f401xc_drivers/ECU/%.c stm32f401xc_drivers/ECU/subdir.mk
-	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F401CCUx -DSTM32 -DSTM32F4 -c -I../Inc -I"D:/Electric Programs/Embeded Systems/LearnInDepth/Boards Drivers/STM32F401xC Drivers/stm32f401xc_drivers" -I"D:/Electric Programs/Embeded Systems/LearnInDepth/Boards Drivers/STM32F401xC Drivers/stm32f401xc_drivers/Inc" -I"D:/Electric Programs/Embeded Systems/LearnInDepth/Boards Drivers/STM32F401xC Drivers/stm32f401xc_drivers/ECU/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F401CCUx -DSTM32 -DSTM32F4 -c -I../Inc -I"D:/Electric Programs/Embeded Systems/LearnInDepth/Boards Drivers/STM32F401xC Drivers/STM32F401xC Drivers/stm32f401xc_drivers" -I"D:/Electric Programs/Embeded Systems/LearnInDepth/Boards Drivers/STM32F401xC Drivers/STM32F401xC Drivers/stm32f401xc_drivers/Inc" -I"D:/Electric Programs/Embeded Systems/LearnInDepth/Boards Drivers/STM32F401xC Drivers/STM32F401xC Drivers/stm32f401xc_drivers/ECU/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
 clean: clean-stm32f401xc_drivers-2f-ECU
 

@@ -1,0 +1,14 @@
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:77:13:NRF_CSN_Select	1
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:85:13:NRF_CSN_Unselect	1
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:93:13:NRF_CE_Enable	1
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:101:13:NRF_CE_Disable	1
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:110:16:NRF_SPI_TransceiveByte	1
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:123:13:HAL_NRF24L01_SelectDevice_Init	1
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:153:13:HAL_NRF24L01_Write_Cmd	1
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:163:13:HAL_NRF24L01_Reset	1
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:212:6:HAL_NRF24L01_Read	3
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:240:6:HAL_NRF24L01_Write	3
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:268:6:HAL_NRF24L01_Init	1
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:289:6:HAL_NRF24L01_Device	3
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:337:9:HAL_NRF24L01_Transmit	7
+../stm32f401xc_drivers/ECU/nrf24l01_driver.c:408:9:HAL_NRF24L01_Receive	5

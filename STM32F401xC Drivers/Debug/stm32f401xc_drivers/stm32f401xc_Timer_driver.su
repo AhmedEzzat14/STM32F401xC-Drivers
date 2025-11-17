@@ -10,7 +10,7 @@
 ../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:248:10:MCAL_Timer_Encoder_GetCounts	16	static
 ../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:253:6:MCAL_Timer_Encoder_SetCounts	16	static
 ../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:257:6:Timer_Delay	40	static
-../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:354:6:TIM2_IRQHandler	4	static
-../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:370:6:TIM3_IRQHandler	4	static
-../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:377:6:TIM4_IRQHandler	4	static
-../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:384:6:TIM5_IRQHandler	4	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:355:6:TIM2_IRQHandler	4	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:371:6:TIM3_IRQHandler	4	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:378:6:TIM4_IRQHandler	4	static
+../stm32f401xc_drivers/stm32f401xc_Timer_driver.c:385:6:TIM5_IRQHandler	4	static

@@ -5,5 +5,5 @@
 ../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:173:6:MCAL_SPI_DeInit	4
 ../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:189:6:MCAL_SPI_SendData	4
 ../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:204:6:MCAL_SPI_ReceiveData	4
-../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:219:6:MCAL_SPI_Transceive	1
-../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:224:13:MCAL_SPI_SetPins	4
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:219:6:MCAL_SPI_Transceive	5
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:240:13:MCAL_SPI_SetPins	4

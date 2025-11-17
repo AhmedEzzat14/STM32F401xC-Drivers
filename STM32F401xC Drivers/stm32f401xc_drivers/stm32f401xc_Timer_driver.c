@@ -264,6 +264,7 @@ void Timer_Delay(TIMER_TypeDef *Timer, float32 time, uint8_t uint_type){
 
     if(Timer == TIMER1){
         RCC_TIMER1_CLK_EN();
+        NVIC_IRQ_TIMER1_UP_EN();
     }
     else if(Timer == TIMER2){
         RCC_TIMER2_CLK_EN();

@@ -149,7 +149,7 @@ void MCAL_SPI_Init(SPI_Typedef *SPIx, SPI_PinConfig_t *SPI_Config){
 	temp_CR1 |= SPI_Config->SPI_BaudRatePrescaler;
 
 	// Enable / Disable Interrupt
-	if(SPI_IRQ_EN_None == (SPI_Config->SPI_IRQ_Enable)){
+	if(SPI_IRQ_EN_None != (SPI_Config->SPI_IRQ_Enable)){
 		temp_CR2 |= SPI_Config->SPI_IRQ_Enable;
 		if(SPIx == SPI1){
 			NVIC_IRQ_SPI1_EN();
@@ -216,13 +216,37 @@ void MCAL_SPI_ReceiveData(uint8_t *PxBuffer, Polling_Mechanism_t pollin_status){
 	}
 }
 
-void MCAL_SPI_Transceive(uint8_t *PxBuffer, Polling_Mechanism_t pollin_status){
-	MCAL_SPI_SendData(PxBuffer, pollin_status);
-	MCAL_SPI_ReceiveData(PxBuffer, pollin_status);
+void MCAL_SPI_Transceive(uint8_t *PxBuffer, Polling_Mechanism_t pollin_status)
+{
+    // 1. Wait for TX Buffer Empty
+    if (Polling_Enable == pollin_status)
+    {
+        while(!(G_SPIx->SR & (1 << 1)));
+    }
+
+    // 2. Send Data
+    G_SPIx->DR = (*PxBuffer);
+
+    // 3. Wait for RX Buffer Not Empty (Data received from nRF)
+    if (Polling_Enable == pollin_status)
+    {
+        while(!(G_SPIx->SR & (1 << 0)));
+    }
+
+    // 4. READ the data (This clears the RXNE flag and gets the value)
+    (*PxBuffer) = G_SPIx->DR;
 }
 
 static void MCAL_SPI_SetPins(SPI_Typedef *SPIx){
 	GPIO_PinConfig_t Pin_Config;
+
+	// ========================================================
+	// [FIX] Initialize common settings to prevent garbage values
+	// ========================================================
+	Pin_Config.GPIO_TYPE = GPIO_TYPE_PP;        // Push-Pull (Critical for clean signals)
+	Pin_Config.GPIO_Output_Speed = GPIO_SPEED_HIGH; // High Speed for SPI communication
+	Pin_Config.GPIO_PU_PD = GPIO_PU_PD_NONE;    // No Pull-up/down (Let the driver drive the line)
+	// ========================================================
 
 	if(SPIx == SPI1){
 		// MOSI ===> PA7

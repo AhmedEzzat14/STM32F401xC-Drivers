@@ -6,4 +6,4 @@
 ../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:189:6:MCAL_SPI_SendData	16	static
 ../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:204:6:MCAL_SPI_ReceiveData	16	static
 ../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:219:6:MCAL_SPI_Transceive	16	static
-../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:224:13:MCAL_SPI_SetPins	32	static
+../stm32f401xc_drivers/stm32f401xc_SPI_driver.c:240:13:MCAL_SPI_SetPins	32	static
