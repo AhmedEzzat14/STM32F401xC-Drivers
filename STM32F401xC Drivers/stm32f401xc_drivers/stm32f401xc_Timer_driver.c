@@ -20,6 +20,8 @@
 volatile TIMER_TypeDef *G_Timer;
 Timer_Config_t *G_Timer_config = NULL;
 
+static uint32_t Encoder_Counts;
+
 volatile uint8_t delay_flag;
 uint32_t delay;
 
@@ -237,24 +239,63 @@ void MCAL_Timer_PWM_SetDuty(Timer_Config_t *cfg, uint32_t DutyCycle){
 	cfg->BaseConfig.TIMERx->CCR4 = CCR; break;
     }
 
-    // Update
     cfg->BaseConfig.TIMERx->EGR |= (1 << 0);
 }
 
-void MCAL_Timer_Encoder_Init(Timer_Config_t *Timer_Config){
-    /* TODO: implement encoder mode init (not implemented yet) */
+void MCAL_Timer_Encoder_Init(TIMER_TypeDef *TIMERx){
+    if(TIMER1 == TIMERx){
+	RCC_TIMER1_CLK_EN();
+    }
+    else if(TIMER2 == TIMERx){
+	RCC_TIMER2_CLK_EN();
+    }
+    else if(TIMER3 == TIMERx){
+	RCC_TIMER2_CLK_EN();
+    }
+    else if(TIMER4 == TIMERx){
+	RCC_TIMER2_CLK_EN();
+    }
+    else if(TIMER5 == TIMERx){
+	RCC_TIMER2_CLK_EN();
+    }
+
+    // Setting the Autoreload Register to Maximum Value for the Overflow 0-65535
+    TIMERx->ARR = 0xFFFF;
+
+    // Configuring Channel 1 & Channel 2 as Input on their Trigger
+    TIMERx->CCMR1 |= ((1U << 0) | (1U << 8));
+
+    //choosing active high trigger on channel 1 and channel 2
+    TIMERx->CCER &= ~((1U << 1) | (1U << 5));
+    TIMERx->CCER |=  ((1U << 0) | (1U << 4));
+
+    // Choosing Slave Mode Selection Which Allows Counter to Counts up/down for Both Channels Depending on the Inputs
+    TIMERx->SMCR |=  ((1U << 0) | (1U << 1));
+
+    // Enabling Counter from Timer Control Register
+    TIMERx->CR1 |= (1U << 0);
 }
 
-sint16_t MCAL_Timer_Encoder_GetCounts(Timer_Config_t *Timer_Config){
-    /* TODO: implement */
-    return 0;
+sint16_t MCAL_Timer_Encoder_GetCounts(TIMER_TypeDef *TIMERx){
+    if((TIMER5 == TIMERx) || ((TIMER2 == TIMERx))){
+	Encoder_Counts += (sint32_t)TIMERx->CNT;
+    }
+    else{
+	Encoder_Counts += (sint16_t)TIMERx->CNT;
+    }
+    return Encoder_Counts;
 }
 
-void MCAL_Timer_Encoder_SetCounts(Timer_Config_t *Timer_Config, uint16_t Counts){
-    /* TODO: implement */
+void MCAL_Timer_Encoder_SetCounts(TIMER_TypeDef *TIMERx, uint16_t Counts){
+    if((TIMER5 == TIMERx) || ((TIMER2 == TIMERx))){
+	TIMERx->CNT = (sint32_t)Counts;
+    }
+    else{
+	TIMERx->CNT = Counts;
+    }
 }
 
-void Timer_Delay(TIMER_TypeDef *Timer, float32 time, uint8_t uint_type){
+void MCAL_Timer_Delay(TIMER_TypeDef *Timer, float32 time, uint8_t uint_type){
     G_Timer = Timer;
 
     // Disable timer completely first

@@ -238,11 +238,11 @@ void MCAL_Timer_DeInit(Timer_Config_t *Timer_Config);
 void MCAL_Timer_PWM_Init(Timer_Config_t *Timer_Config, uint32_t DutyCycle);
 void MCAL_Timer_PWM_SetDuty(Timer_Config_t *cfg, uint32_t DutyCycle);
 
-void MCAL_Timer_Encoder_Init(Timer_Config_t *Timer_Config);
-sint16_t MCAL_Timer_Encoder_GetCounts(Timer_Config_t *Timer_Config);
-void MCAL_Timer_Encoder_SetCounts(Timer_Config_t *Timer_Config, uint16_t Counts);
+void MCAL_Timer_Encoder_Init(TIMER_TypeDef *TIMERx);
+sint16_t MCAL_Timer_Encoder_GetCounts(TIMER_TypeDef *TIMERx);
+void MCAL_Timer_Encoder_SetCounts(TIMER_TypeDef *TIMERx, uint16_t Counts);
 
-void Timer_Delay(TIMER_TypeDef *Timer, float32 time, uint8_t uint);
+void MCAL_Timer_Delay(TIMER_TypeDef *Timer, float32 time, uint8_t uint);
 
 /*
  * =======================================================
@@ -252,8 +252,5 @@ void Timer_Delay(TIMER_TypeDef *Timer, float32 time, uint8_t uint);
  */
 #define Unit_ms					0
 #define Unit_us					1
-
-
-//============================================================
 
 #endif /* INC_STM32F401XC_TIMER_DRIVER_H_ */
