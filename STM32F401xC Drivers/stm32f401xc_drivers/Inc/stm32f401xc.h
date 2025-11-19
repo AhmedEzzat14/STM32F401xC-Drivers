@@ -66,6 +66,10 @@
 // Base Addresses for APB1 Peripherals
 //---------------------------------------
 
+// DMA 1 & 2
+#define DMA1_BASE											0x40026000UL
+#define DMA2_BASE											0x40026400UL
+
 // USART 2
 #define USART2_BASE											0x40004400UL
 
@@ -116,6 +120,9 @@
 // TIMER 1
 #define TIMER1_BASE											0x40010000UL
 
+// ADC 1
+#define ADC1_BASE											0x40012000UL
+
 //---------------------------------------
 // Base Addresses for AHB2 Peripherals
 //---------------------------------------
@@ -142,7 +149,7 @@ typedef struct{
     volatile uint32_t SHCSR	 ;
     volatile uint32_t CFSR	 ;
     volatile uint32_t HFSR	 ;
-	     uint32_t RESERVED0	 ;
+    uint32_t RESERVED0	 ;
     volatile uint32_t MMAR	 ;
     volatile uint32_t BFAR	 ;
     volatile uint32_t AFSR	 ;
@@ -164,10 +171,10 @@ typedef struct{
 // Peripheral Register: SysTick
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 typedef struct{
-     volatile uint32_t CTRL	 ;
-     volatile uint32_t LOAD	 ;
-     volatile uint32_t VAL	 ;
-     volatile uint32_t CALIB 	 ;
+    volatile uint32_t CTRL	 ;
+    volatile uint32_t LOAD	 ;
+    volatile uint32_t VAL	 ;
+    volatile uint32_t CALIB 	 ;
 }SysTick_TypeDef;
 
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
@@ -180,6 +187,26 @@ typedef struct{
     volatile uint32_t CMPCR;
 }SYSCFG_TypeDef;
 
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-
+// Peripheral Register: DMA
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-
+typedef struct{
+    volatile uint32_t CR;
+    volatile uint32_t NDTR;
+    volatile uint32_t PAR;
+    volatile uint32_t M0AR;
+    volatile uint32_t M1AR;
+    volatile uint32_t FCR;
+}DMA_Stream_t;
+
+typedef struct{
+    volatile uint32_t LISR;
+    volatile uint32_t HISR;
+    volatile uint32_t LIFCR;
+    volatile uint32_t HIFCR;
+    DMA_Stream_t      Stream[8];
+}DMA_TypeDef;
+
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 // Peripheral Register: RCC
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
@@ -190,35 +217,35 @@ typedef struct{
     volatile uint32_t CIR;
     volatile uint32_t AHB1RSTR;
     volatile uint32_t AHB2RSTR;
-	     uint32_t RESERVED0;
-	     uint32_t RESERVED1;
+    uint32_t RESERVED0;
+    uint32_t RESERVED1;
     volatile uint32_t APB1RSTR;
     volatile uint32_t APB2RSTR;
-	     uint32_t RESERVED2;
-	     uint32_t RESERVED3;
+    uint32_t RESERVED2;
+    uint32_t RESERVED3;
     volatile uint32_t AHB1ENR;
     volatile uint32_t AHB2ENR;
-	     uint32_t RESERVED4;
-             uint32_t RESERVED5;
+    uint32_t RESERVED4;
+    uint32_t RESERVED5;
     volatile uint32_t APB1ENR;
     volatile uint32_t APB2ENR;
-	     uint32_t RESERVED6;
-	     uint32_t RESERVED7;
+    uint32_t RESERVED6;
+    uint32_t RESERVED7;
     volatile uint32_t AHB1LPENR;
     volatile uint32_t AHB2LPENR;
-	     uint32_t RESERVED8;
-	     uint32_t RESERVED9;
+    uint32_t RESERVED8;
+    uint32_t RESERVED9;
     volatile uint32_t APB1LPENR;
     volatile uint32_t APB2LPENR;
-	     uint32_t RESERVED10;
-	     uint32_t RESERVED11;
+    uint32_t RESERVED10;
+    uint32_t RESERVED11;
     volatile uint32_t BDCR;
     volatile uint32_t CSR;
-	     uint32_t RESERVED12;
-	     uint32_t RESERVED13;
+    uint32_t RESERVED12;
+    uint32_t RESERVED13;
     volatile uint32_t SSCGR;
     volatile uint32_t PLLI2SCFGR;
-	     uint32_t RESERVED14;
+    uint32_t RESERVED14;
     volatile uint32_t DCKCFGR;
 }RCC_TypeDef;
 
@@ -266,11 +293,11 @@ typedef struct{
 // Peripheral Register: SPI
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 typedef struct{
-    volatile uint32_t CR1		;
-    volatile uint32_t CR2		;
-    volatile uint32_t SR		;
-    volatile uint32_t DR		;
-    volatile uint32_t CRCPR		;
+    volatile uint32_t CR1	;
+    volatile uint32_t CR2	;
+    volatile uint32_t SR	;
+    volatile uint32_t DR	;
+    volatile uint32_t CRCPR	;
     volatile uint32_t RXCRCR	;
     volatile uint32_t TXCRCR	;
     volatile uint32_t I2SCFGR	;
@@ -319,6 +346,32 @@ typedef struct{
     volatile uint32_t DMAR		;
 }TIMER_TypeDef;
 
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+// Peripheral Register: ADC
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+typedef struct{
+    volatile uint32_t SR;
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t SMPR1;
+    volatile uint32_t SMPR2;
+    volatile uint32_t JOFR1;
+    volatile uint32_t JOFR2;
+    volatile uint32_t JOFR3;
+    volatile uint32_t JOFR4;
+    volatile uint32_t HTR;
+    volatile uint32_t LTR;
+    volatile uint32_t SQR1;
+    volatile uint32_t SQR2;
+    volatile uint32_t SQR3;
+    volatile uint32_t JSQR;
+    volatile uint32_t JDR1;
+    volatile uint32_t JDR2;
+    volatile uint32_t JDR3;
+    volatile uint32_t JDR4;
+    volatile uint32_t DR;
+}ADC_TypeDef;
+
 //============================================================
 
 //-*-*-*-*-*-*-*-*-*-*-*-
@@ -329,6 +382,9 @@ typedef struct{
 #define SysTick						((SysTick_TypeDef *)SysTicK_BASE)
 
 #define SYSCFG						((SYSCFG_TypeDef *)SYSCFG_BASE)
+
+#define DMA1						((DMA_TypeDef *)DMA1_BASE)
+#define DMA2						((DMA_TypeDef *)DMA2_BASE)
 
 #define RCC						((RCC_TypeDef *)RCC_BASE)
 
@@ -360,12 +416,17 @@ typedef struct{
 #define TIMER4						((TIMER_TypeDef *)TIMER4_BASE)
 #define TIMER5						((TIMER_TypeDef *)TIMER5_BASE)
 
+#define ADC1						((ADC_TypeDef *)ADC1_BASE)
+
 //-*-*-*-*-*-*-*-*-*-*-*-
 // Clock Enable Macros:
 //-*-*-*-*-*-*-*-*-*-*-*-
 
 // Clock Enable
 #define RCC_SYSCFG_CLK_EN()				(RCC->APB2ENR |= (1 << 14))
+
+#define RCC_DMA1_CLK_EN()				(RCC->AHB1ENR |= (1 << 21))
+#define RCC_DMA2_CLK_EN()				(RCC->AHB1ENR |= (1 << 22))
 
 #define RCC_GPIOA_CLK_EN()				(RCC->AHB1ENR |= (1 << 0))
 #define RCC_GPIOB_CLK_EN()				(RCC->AHB1ENR |= (1 << 1))
@@ -392,8 +453,13 @@ typedef struct{
 #define RCC_TIMER4_CLK_EN()				(RCC->APB1ENR |= (1 << 2))
 #define RCC_TIMER5_CLK_EN()				(RCC->APB1ENR |= (1 << 3))
 
+#define RCC_ADC1_CLK_EN()				(RCC->APB2ENR |= (1 << 8))
+
 // Reset
 #define RCC_SYSCFG_CLK_RST_SET()			(RCC->APB2RSTR |= (1 << 14))
+
+#define RCC_DMA1_CLK_RST_SET()				(RCC->AHB1RSTR |= (1 << 21))
+#define RCC_DMA2_CLK_RST_SET()				(RCC->AHB1RSTR |= (1 << 22))
 
 #define RCC_GPIOA_CLK_RST_SET()				(RCC->AHB1RSTR |= (1 << 0))
 #define RCC_GPIOB_CLK_RST_SET()				(RCC->AHB1RSTR |= (1 << 1))
@@ -420,9 +486,31 @@ typedef struct{
 #define RCC_TIMER4_CLK_RST_SET()			(RCC->APB1RSTR |= (1 << 2))
 #define RCC_TIMER5_CLK_RST_SET()			(RCC->APB1RSTR |= (1 << 3))
 
+#define RCC_ADC1_CLK_RST_SET()				(RCC->APB2RSTR |= (1 << 8))
+
 //-*-*-*-*-
 // IVT
 //-*-*-*-*-
+
+// DMA
+#define DMA1_Stream0_IRQ		11
+#define DMA1_Stream1_IRQ		12
+#define DMA1_Stream2_IRQ		13
+#define DMA1_Stream3_IRQ		14
+#define DMA1_Stream4_IRQ		15
+#define DMA1_Stream5_IRQ		16
+#define DMA1_Stream6_IRQ		17
+#define DMA1_Stream7_IRQ		47
+
+#define DMA2_Stream0_IRQ		56
+#define DMA2_Stream1_IRQ		57
+#define DMA2_Stream2_IRQ		58
+#define DMA2_Stream3_IRQ		59
+#define DMA2_Stream4_IRQ		60
+#define DMA2_Stream5_IRQ		68
+#define DMA2_Stream6_IRQ		69
+#define DMA2_Stream7_IRQ		70
+
 // EXTI
 #define EXTI0_IRQ			6
 #define EXTI1_IRQ			7
@@ -446,11 +534,13 @@ typedef struct{
 #define USART2_IRQ			38
 #define USART6_IRQ			71
 
+// SPI
 #define SPI1_IRQ			35
 #define SPI2_IRQ			36
 #define SPI3_IRQ			51
 #define SPI4_IRQ			84
 
+// I2C
 #define I2C1_EV				31
 #define I2C1_ER				32
 
@@ -460,6 +550,7 @@ typedef struct{
 #define I2C3_EV				72
 #define I2C3_ER				73
 
+// TIMER
 #define TIMER1_BRK_IRQ			24
 #define TIMER1_UP_IRQ			25
 #define TIMER1_TRIG_COM_IRQ		26
@@ -470,10 +561,31 @@ typedef struct{
 #define TIMER4_IRQ			30
 #define TIMER5_IRQ			50
 
+// ADC
+#define ADC1_IRQ			18
+
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 //NVIC IRQ Enable/Disable macros
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 // Enable
+#define NVIC_IRQ_DMA1_S0_EN()				(NVIC_ISER0_BASE |= (1 << 11))
+#define NVIC_IRQ_DMA1_S1_EN()				(NVIC_ISER0_BASE |= (1 << 12))
+#define NVIC_IRQ_DMA1_S2_EN()				(NVIC_ISER0_BASE |= (1 << 13))
+#define NVIC_IRQ_DMA1_S3_EN()				(NVIC_ISER0_BASE |= (1 << 14))
+#define NVIC_IRQ_DMA1_S4_EN()				(NVIC_ISER0_BASE |= (1 << 15))
+#define NVIC_IRQ_DMA1_S5_EN()				(NVIC_ISER0_BASE |= (1 << 16))
+#define NVIC_IRQ_DMA1_S6_EN()				(NVIC_ISER0_BASE |= (1 << 17))
+#define NVIC_IRQ_DMA1_S7_EN()				(NVIC_ISER1_BASE |= (1 << (DMA1_Stream7_IRQ - 32)))
+
+#define NVIC_IRQ_DMA2_S0_EN()				(NVIC_ISER1_BASE |= (1 << (DMA2_Stream0_IRQ - 32)))
+#define NVIC_IRQ_DMA2_S1_EN()				(NVIC_ISER1_BASE |= (1 << (DMA2_Stream1_IRQ - 32)))
+#define NVIC_IRQ_DMA2_S2_EN()				(NVIC_ISER1_BASE |= (1 << (DMA2_Stream2_IRQ - 32)))
+#define NVIC_IRQ_DMA2_S3_EN()				(NVIC_ISER1_BASE |= (1 << (DMA2_Stream3_IRQ - 32)))
+#define NVIC_IRQ_DMA2_S4_EN()				(NVIC_ISER1_BASE |= (1 << (DMA2_Stream4_IRQ - 32)))
+#define NVIC_IRQ_DMA2_S5_EN()				(NVIC_ISER2_BASE |= (1 << (DMA2_Stream5_IRQ - 64)))
+#define NVIC_IRQ_DMA2_S6_EN()				(NVIC_ISER2_BASE |= (1 << (DMA2_Stream6_IRQ - 64)))
+#define NVIC_IRQ_DMA2_S7_EN()				(NVIC_ISER2_BASE |= (1 << (DMA1_Stream7_IRQ - 64)))
+
 #define NVIC_IRQ6_EXTI0_EN()				(NVIC_ISER0_BASE |= (1 << 6))
 #define NVIC_IRQ7_EXTI1_EN()				(NVIC_ISER0_BASE |= (1 << 7))
 #define NVIC_IRQ8_EXTI2_EN()				(NVIC_ISER0_BASE |= (1 << 8))
@@ -509,7 +621,27 @@ typedef struct{
 #define NVIC_IRQ_TIMER4_EN()				(NVIC_ISER0_BASE |= (1 << 30))
 #define NVIC_IRQ_TIMER5_EN()				(NVIC_ISER1_BASE |= (1 << (TIMER5_IRQ - 32)))
 
+#define NVIC_IRQ_ADC1_EN()				(NVIC_ISER0_BASE |= (1 << ADC1_IRQ))
+
 // Disable
+#define NVIC_IRQ_DMA1_S0_DIS()				(NVIC_ICER0_BASE |= (1 << 11))
+#define NVIC_IRQ_DMA1_S1_DIS()				(NVIC_ICER0_BASE |= (1 << 12))
+#define NVIC_IRQ_DMA1_S2_DIS()				(NVIC_ICER0_BASE |= (1 << 13))
+#define NVIC_IRQ_DMA1_S3_DIS()				(NVIC_ICER0_BASE |= (1 << 14))
+#define NVIC_IRQ_DMA1_S4_DIS()				(NVIC_ICER0_BASE |= (1 << 15))
+#define NVIC_IRQ_DMA1_S5_DIS()				(NVIC_ICER0_BASE |= (1 << 16))
+#define NVIC_IRQ_DMA1_S6_DIS()				(NVIC_ICER0_BASE |= (1 << 17))
+#define NVIC_IRQ_DMA1_S7_DIS()				(NVIC_ICER1_BASE |= (1 << (DMA1_Stream7_IRQ - 32)))
+
+#define NVIC_IRQ_DMA2_S0_DIS()				(NVIC_ICER1_BASE |= (1 << (DMA2_Stream0_IRQ - 32)))
+#define NVIC_IRQ_DMA2_S1_DIS()				(NVIC_ICER1_BASE |= (1 << (DMA2_Stream1_IRQ - 32)))
+#define NVIC_IRQ_DMA2_S2_DIS()				(NVIC_ICER1_BASE |= (1 << (DMA2_Stream2_IRQ - 32)))
+#define NVIC_IRQ_DMA2_S3_DIS()				(NVIC_ICER1_BASE |= (1 << (DMA2_Stream3_IRQ - 32)))
+#define NVIC_IRQ_DMA2_S4_DIS()				(NVIC_ICER1_BASE |= (1 << (DMA2_Stream4_IRQ - 32)))
+#define NVIC_IRQ_DMA2_S5_DIS()				(NVIC_ICER2_BASE |= (1 << (DMA2_Stream5_IRQ - 64)))
+#define NVIC_IRQ_DMA2_S6_DIS()				(NVIC_ICER2_BASE |= (1 << (DMA2_Stream6_IRQ - 64)))
+#define NVIC_IRQ_DMA2_S7_DIS()				(NVIC_ICER2_BASE |= (1 << (DMA1_Stream7_IRQ - 64)))
+
 #define NVIC_IRQ6_EXTI0_DIS()				(NVIC_ICER0_BASE |= (1 << 6))
 #define NVIC_IRQ7_EXTI1_DIS()				(NVIC_ICER0_BASE |= (1 << 7))
 #define NVIC_IRQ8_EXTI2_DIS()				(NVIC_ICER0_BASE |= (1 << 8))
@@ -544,6 +676,8 @@ typedef struct{
 #define NVIC_IRQ_TIMER3_DIS()				(NVIC_ICER0_BASE |= (1 << 29))
 #define NVIC_IRQ_TIMER4_DIS()				(NVIC_ICER0_BASE |= (1 << 30))
 #define NVIC_IRQ_TIMER5_DIS()				(NVIC_ICER1_BASE |= (1 << (TIMER5_IRQ - 32)))
+
+#define NVIC_IRQ_ADC1_DIS()				(NVIC_ICER0_BASE |= (1 << ADC1_IRQ))
 
 //-*-*-*-*-*-*-*-*-*-*-*-
 // Generic Macros:

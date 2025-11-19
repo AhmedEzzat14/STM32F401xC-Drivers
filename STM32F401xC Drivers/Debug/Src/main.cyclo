@@ -1,3 +1,9 @@
-../Src/main.c:8:6:Clock_Init	1
-../Src/main.c:19:6:HAL_Delay_ms	3
-../Src/main.c:27:5:main	2
+../Src/main.c:33:6:Clock_Init	1
+../Src/main.c:39:6:delay_ms	2
+../Src/main.c:45:24:to10bit	1
+../Src/main.c:49:24:map_clamp_uint16	4
+../Src/main.c:58:10:read_raw12	1
+../Src/main.c:64:10:read_raw12_avg	3
+../Src/main.c:79:6:calibrate_dynamic	10
+../Src/main.c:110:10:read_calibrated_10bit	3
+../Src/main.c:121:5:main	1
